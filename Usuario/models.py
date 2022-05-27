@@ -32,6 +32,8 @@ class Motorista(Usuario):
 class Administrador(Usuario):
     matricula = models.CharField(
         max_length=20, null=True, blank=True, verbose_name='Matrícula')
+    funcao = models.CharField(
+        max_length=20, null=True, blank=True, verbose_name='Função')
 
     def __str__(self):
         return self.first_name + " " + self.last_name
@@ -40,3 +42,14 @@ class Administrador(Usuario):
         ordering = ['first_name', 'last_name']
         verbose_name = "Administrador"
         verbose_name_plural = "Administradores"
+
+
+class Porteiro(User):
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
+
+    class Meta:
+        ordering = ['first_name', 'last_name']
+        verbose_name = "Porteiro"
+        verbose_name_plural = "Porteiros"
