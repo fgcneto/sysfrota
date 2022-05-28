@@ -17,16 +17,18 @@ class LiberarVeiculo(models.Model):
     responsavel_liberacao = models.ForeignKey(
         Administrador, on_delete=models.RESTRICT, related_name="administrador_veiculo", verbose_name="Administrador")
     porteiro_saida = models.ForeignKey(
-        Porteiro, on_delete=models.RESTRICT, related_name="porteiro_saida", verbose_name="Porteiro")
+        Porteiro, null=True, blank=True, on_delete=models.RESTRICT, related_name="porteiro_saida", verbose_name="Porteiro")
     porteiro_chegada = models.ForeignKey(
-        Porteiro, on_delete=models.RESTRICT, related_name="porteiro_chegada", verbose_name="Porteiro")
+        Porteiro, null=True, blank=True, on_delete=models.RESTRICT, related_name="porteiro_chegada", verbose_name="Porteiro")
     assinatura_motorista_saida = models.BooleanField(
         verbose_name="Assinatura do Porteiro na Saída")
     assinatura_motorista_chegada = models.BooleanField(
         verbose_name="Assinatura do Porteiro na Chegada")
     km_saida = models.PositiveIntegerField(
+        null=True, blank=True,
         verbose_name="Kilometragem de Saída")
     km_chegada = models.PositiveIntegerField(
+        null=True, blank=True,
         verbose_name="Kilometragem de Chegada")
 
     def __str__(self):

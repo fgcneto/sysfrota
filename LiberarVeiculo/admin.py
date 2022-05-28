@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from LiberarVeiculo.models import LiberarVeiculo
+
+admin.site.register(LiberarVeiculo)

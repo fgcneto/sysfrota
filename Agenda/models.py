@@ -28,7 +28,7 @@ class Agenda(models.Model):
         Administrador, on_delete=models.RESTRICT, related_name="administrador", verbose_name="Administrador")
 
     def __str__(self):
-        return str(self.descricao) + " - " + str(self.veiculo) + " - " + str(self.motorista) + " - " + str(self.data_saida) + " - " + str(self.hora_saida)
+        return str(self.destino) + " - " + (self.descricao) + " - " + str(self.veiculo) + " - " + str(self.motorista) + " - " + str(self.data_saida) + " - " + str(self.hora_saida)
 
     class Meta:
         ordering = ['data_saida', 'hora_saida']
