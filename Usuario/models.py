@@ -5,6 +5,9 @@ from cpf_field.models import CPFField
 
 
 class Usuario(AbstractUser):
+    """
+        Responsável pela Gestão do Usuários do Sistema
+    """
     cpf = CPFField('cpf', unique=True, null=True, blank=True)
 
     def __str__(self):

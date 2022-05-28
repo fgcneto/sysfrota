@@ -4,6 +4,10 @@ from django.db import models
 
 
 class Agenda(models.Model):
+    """
+        Responsável pela Gestão dos agendamentos 
+        da saída de veículos
+    """
     destino = models.CharField(
         max_length=50, null=True, blank=True, verbose_name='Destino')
     descricao = models.CharField(

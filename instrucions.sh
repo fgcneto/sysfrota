@@ -12,6 +12,9 @@ pip3 install Django
 # criar projeto Django 
 django-admin startproject sysfrota .
 
+# criar app
+python manage.py startapp SeuApp
+
 #  iniciar projeto Django
 python manage.py runserver
 

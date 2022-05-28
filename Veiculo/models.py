@@ -2,6 +2,9 @@ from django.db import models
 
 
 class Veiculo(models.Model):
+    """
+        Responsável pela Gestão de Veículos
+    """
     marca = models.CharField(
         max_length=20, verbose_name='Marca')
     tipo = models.CharField(

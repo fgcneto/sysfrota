@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Usuario',
     'Veiculo',
     'Agenda',
+    'LiberarVeiculo',
     'cpf_field',
 
 ]
