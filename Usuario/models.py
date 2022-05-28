@@ -44,7 +44,7 @@ class Administrador(Usuario):
         verbose_name_plural = "Administradores"
 
 
-class Porteiro(User):
+class Porteiro(Usuario):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
