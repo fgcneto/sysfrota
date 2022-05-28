@@ -5,7 +5,7 @@ from cpf_field.models import CPFField
 
 
 class Usuario(AbstractUser):
-    cpf = CPFField('cpf', unique=True)
+    cpf = CPFField('cpf', unique=True, null=True, blank=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name

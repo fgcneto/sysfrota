@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # local apps
     'Usuario',
     'Veiculo',
+    'Agenda',
     'cpf_field',
 
 ]
