@@ -1,10 +1,10 @@
-from enum import unique
+
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from cpf_field.models import CPFField
 
 
-class Usuario(User):
+class Usuario(AbstractUser):
     cpf = CPFField('cpf', unique=True)
 
     def __str__(self):
