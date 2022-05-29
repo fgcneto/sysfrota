@@ -20,3 +20,6 @@ python manage.py runserver
 
 # install pip CPF Field
 pip install django-cpf
+
+# create superuser
+python3 manage.py createsuperuser
