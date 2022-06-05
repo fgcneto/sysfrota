@@ -6,6 +6,9 @@ __pycache__
 db.sqlite3
 media
 
+# Arquivos com instruções de config e install
+./instrucions.sh
+
 # Backup files # 
 *.bak 
 

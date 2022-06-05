@@ -1,3 +1,5 @@
+## COMANDOS UTILIZADOS NO DEVENVOLVIMENTO
+
 ## instalar ambiente virtual
 python venv venv
 
@@ -29,3 +31,6 @@ pip freeze > ./requirements.txt
 
 # subir e reconstruir os containers dockers web e database
 docker-compose up --build
+
+# executar bash conainter web
+docker-compose exec web bash 
