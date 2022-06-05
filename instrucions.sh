@@ -23,3 +23,9 @@ pip install django-cpf
 
 # create superuser
 python3 manage.py createsuperuser
+
+# criar arquivos requeriments.txt
+pip freeze > ./requirements.txt
+
+# subir e reconstruir os containers dockers web e database
+docker-compose up --build

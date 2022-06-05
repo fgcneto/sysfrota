@@ -1,0 +1,15 @@
+asgiref==3.5.2
+autopep8==1.6.0
+backports.zoneinfo==0.2.1
+Django==4.0.4
+django-cpf==0.1.0
+django-autoslug==1.9.8
+django-debug-toolbar==3.1.1
+django-model-utils==4.1.0
+factory-boy==3.1.0
+ipython==7.19.0
+pillow==8.0.1
+psycopg2==2.8.6
+pytest==6.1.2
+pytest-cov==2.10.1
+pytest-django==4.1.0
