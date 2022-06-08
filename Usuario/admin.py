@@ -7,7 +7,6 @@ from .forms import \
     AlterarMotoristaForm, SalvarMotoristaForm, \
     AlterarPorteiroForm, SalvarPorteiroForm
 
-admin.site.register(Usuario)
 admin.site.register(Administrador)
 admin.site.register(Porteiro)
 admin.site.register(Motorista)
