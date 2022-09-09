@@ -11,9 +11,14 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'Templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'Static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'Media')
+MEDIA_URL = '/media/'
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,11 +47,11 @@ INSTALLED_APPS = [
     'Usuario',
     'Veiculo',
     'Agenda',
-    'Pages',
     'LiberarVeiculo',
     'cpf_field',
     'bootstrap5',  # pip install django-bootstrap-v5
-
+    'django_filters',  # pip install django-filter
+    'sweetify',  # pip install --upgrade sweetify
 ]
 
 MIDDLEWARE = [
@@ -64,7 +69,7 @@ ROOT_URLCONF = 'sysfrota.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        "DIRS": [BASE_DIR / "Templates"],
+        "DIRS": [TEMPLATE_DIR, ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,6 +78,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'pagination_tag': 'Veiculo.templatetags.pagination_tag',
+            }
         },
     },
 ]
@@ -130,7 +138,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'Static/'
-STATICFILES_DIRS = [BASE_DIR / "Static"]
+STATICFILES_DIRS = [STATIC_DIR]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
@@ -140,3 +148,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # My User model default
 AUTH_USER_MODEL = 'Usuario.Usuario'
+
+# Sweetify - SweetAlert for Django
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert'

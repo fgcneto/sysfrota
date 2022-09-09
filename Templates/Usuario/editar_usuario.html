@@ -1,0 +1,36 @@
+{% extends "Base/base.html" %}
+{% load bootstrap5 %}
+
+{% block titulo_pagina %}
+Editar
+{% endblock %}
+
+{% block raiz %}
+Funcionários
+{% endblock %}
+
+{% block titulo %}
+Editar
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="row">
+    <div class="col-xl">
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Atualizar dados: {{ object }}</h5>
+          <small class="text-muted float-end"></small>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-primary">Atualizar</button>
+            </form>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

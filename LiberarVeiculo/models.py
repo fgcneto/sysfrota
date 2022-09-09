@@ -1,6 +1,4 @@
-
 from django.db import models
-
 from Agenda.models import Agenda
 from Usuario.models import Administrador, Porteiro
 
@@ -15,20 +13,27 @@ class LiberarVeiculo(models.Model):
         verbose_name="Observações")
     agendamento = models.ForeignKey(
         Agenda, on_delete=models.RESTRICT,
-        related_name="agenda_veiculo",
+        related_name="agendamento_liberacao_veiculo",
         verbose_name="Agenda")
     responsavel_liberacao = models.ForeignKey(
         Administrador, on_delete=models.RESTRICT,
-        related_name="administrador_veiculo",
+        related_name="responsavel_liberacao_veiculo",
         verbose_name="Administrador")
-    porteiro_saida = models.BooleanField(
+    porteiro_saida = models.ForeignKey(
+        Porteiro, on_delete=models.RESTRICT,
+        related_name="porteiro_saida_liberacao_veiculo",
+        verbose_name="Porteiro")
+    porteiro_chegada = models.ForeignKey(
+        Porteiro, on_delete=models.RESTRICT,
+        null=True, blank=True,
+        related_name="porteiro_chegada_liberacao_veiculo",
+        verbose_name="Porteiro")
+    confirmacao_saida = models.BooleanField(
+        null=True,
         verbose_name="Assinatura do Porteiro na Saída")
-    porteiro_chegada = models.BooleanField(
+    confirmacao_chegada = models.BooleanField(
+        null=True,
         verbose_name="Assinatura do Porteiro na Chegada")
-    assinatura_motorista_saida = models.BooleanField(
-        verbose_name="Assinatura do Motorista na Saída")
-    assinatura_motorista_chegada = models.BooleanField(
-        verbose_name="Assinatura do Motorista na Chegada")
     km_saida = models.PositiveIntegerField(
         null=True,
         blank=True,
@@ -37,6 +42,11 @@ class LiberarVeiculo(models.Model):
         null=True,
         blank=True,
         verbose_name="Kilometragem de Chegada")
+    created_at = models.DateTimeField(
+        verbose_name='Criado em:', auto_now_add=True)
+    updated_at = models.DateTimeField(
+        verbose_name='Modificado em:', auto_now=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.agendamento) + " - " + str(self.responsavel_liberacao) + " - " + str(self.agendamento.motorista) + " - " + str(self.agendamento.veiculo) + " - " + str(self.agendamento.hora_saida)

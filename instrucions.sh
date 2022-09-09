@@ -32,5 +32,8 @@ pip freeze > ./requirements.txt
 # subir e reconstruir os containers dockers web e database
 docker-compose up --build
 
-# executar bash conainter web
+# executar o bash linux no container web
 docker-compose exec web bash 
+
+# pip install django-bootstrap-v5
+pip install django-bootstrap-v5

@@ -7,7 +7,7 @@ db.sqlite3
 media
 
 # Arquivos com instruções de config e install
-./instrucions.sh
+instrucions.sh
 
 # Backup files # 
 *.bak 
