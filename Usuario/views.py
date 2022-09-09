@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from django.views.generic import ListView
 from django.views import generic
 from django.urls import reverse_lazy
+from django.conf import settings
 
 from Usuario.models import Usuario
 from Usuario.filters import UsuarioFilter
@@ -14,18 +16,21 @@ from sweetify.views import SweetifySuccessMixin
 
 
 def home(request):
-    if request.user.is_superuser:
-        return home_admin(request)
+
+    if request.user.is_authenticated:
+        return home_authenticated(request)
     else:
-        return home_user(request)
+        return home_logout(request)
 
 
-def home_user(request):
-    return render(request, "Usuario/home_user.html")
+def home_logout(request):
+    if not request.user.is_authenticated:
+        #  return render(request, 'myapp/login_error.html)
+        return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
 
-def home_admin(request):
-    return render(request, "Usuario/home_admin.html")
+def home_authenticated(request):
+    return render(request, "Base/base.html")
 
 
 class UsuarioEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
