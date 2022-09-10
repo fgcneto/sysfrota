@@ -1,4 +1,4 @@
-from Usuario.models import Administrador, Motorista
+from Usuario.models import Usuario
 from Veiculo.models import RotaVeiculo, Veiculo
 from django.db import models
 
@@ -32,14 +32,14 @@ class Agenda(models.Model):
         verbose_name="Veículo"
     )
     motorista = models.ForeignKey(
-        Motorista, on_delete=models.RESTRICT,
+        Usuario, on_delete=models.RESTRICT,
         null=True,
         blank=True,
         related_name="motorista_agenda",
         verbose_name="Motorista"
     )
     usuario_cadastro = models.ForeignKey(
-        Administrador, on_delete=models.RESTRICT,
+        Usuario, on_delete=models.RESTRICT,
         related_name="usuario_cadastro_agenda",
         verbose_name="Administrador"
     )

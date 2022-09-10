@@ -18,7 +18,7 @@ class Veiculo(models.Model):
     kilometragem = models.PositiveIntegerField(
         verbose_name='Kilometragem')
     ano_fabricacao = models.PositiveIntegerField(
-        verbose_name="Ano de Fabricação")
+        verbose_name='Ano de Fabricação')
 
     def __str__(self):
         return self.tipo + " " + self.placa

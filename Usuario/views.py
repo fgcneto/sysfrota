@@ -43,14 +43,10 @@ class UsuarioEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMix
         return reverse_lazy("usuario:listar_usuarios")
 
 
-class UsuarioDeleteView(generic.DeleteView, LoginRequiredMixin):
-    model = Usuario
-    success_url = reverse_lazy("usuario:listar_usuarios")
-
-
 @login_required
-def usuario_delete(request, pk):  # deletar essa função
-    print(Usuario.objects.filter(id=pk))
+def usuario_delete(request, pk):
+
+    # print(Usuario.objects.filter(id=pk))
 
     #     if id:
     #         print(Usuario.objects.filter(id=pk).delete())
@@ -77,4 +73,21 @@ class UsuarioListView(ListView, LoginRequiredMixin):
         context['usuarios'] = Usuario.objects.all()
         context['listar_usuarios'] = 'active'
         context['filterset'] = self.filterset
+        return context
+
+
+class UsuarioRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
+    model = Usuario
+    fields = ['user_type', 'first_name', 'last_name', 'username',
+              'password', 'email', 'cpf', 'matricula', 'habilitacao', 'funcao']
+    success_message = 'Cadastrado!'
+    sweetify_options = {'text': 'Informações do Usuário cadastradas com sucesso.',
+                        'timer': 2500
+                        }
+    template_name = 'Usuario/cadastrar_usuario.html'
+    success_url = reverse_lazy('usuario:listar_usuarios')
+
+    def get_context_data(self, **kwargs):
+        context = super(UsuarioRegisterView, self).get_context_data(**kwargs)
+        context['cadastrar_usuario'] = 'active'
         return context

@@ -5,6 +5,16 @@
 __pycache__
 db.sqlite3
 media
+local_settings.py
+.gitignore
+
+# derated by django
+celerybeat-schedule
+*_initial.py
+*_auto_*.py
+.vscode
+.idea
+.DS_Store
 
 # Arquivos com instruções de config e install
 instrucions.sh

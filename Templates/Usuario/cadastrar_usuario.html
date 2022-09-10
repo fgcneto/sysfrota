@@ -2,15 +2,15 @@
 {% load bootstrap5 %}
 
 {% block titulo_pagina %}
-Editar
+Cadastrar
 {% endblock %}
 
 {% block raiz %}
-Usuários
+Usuario
 {% endblock %}
 
 {% block titulo %}
-Editar
+Cadastrar
 {% endblock %}
 
 {% block conteudo %}
@@ -19,14 +19,14 @@ Editar
     <div class="col-xl">
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">Atualizar dados: {{ object }}</h5>
-          <small class="text-muted float-end"></small>
+          <h5 class="mb-0">Dados do usuario</h5>
+          <small class="text-muted float-end">Informações cadastrais sobre o usuário</small>
         </div>
         <div class="card-body">
             <form method="POST">
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                <button type="submit" class="btn btn-primary">Atualizar</button>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
             </form>
           </form>
         </div>

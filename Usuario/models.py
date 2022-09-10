@@ -8,31 +8,16 @@ class Usuario(AbstractUser):
     """
         Responsável pela Gestão do Usuários do Sistema
     """
+    USER_TYPE_CHOICES = (
+        (1, 'Administrativo'),
+        (2, 'Motorista'),
+        (3, 'Porteiro'),
+    )
+    user_type = models.PositiveSmallIntegerField(
+        verbose_name='Tipo de Usuário', choices=USER_TYPE_CHOICES)
     cpf = CPFField('cpf', unique=True, null=True, blank=True)
-
-    def __str__(self):
-        return self.first_name + " " + self.last_name
-
-    class Meta:
-        ordering = ['first_name', 'last_name']
-        verbose_name = "Usuário"
-        verbose_name_plural = "Usuários"
-
-
-class Motorista(Usuario):
     habilitacao = models.CharField(
         max_length=20, null=True, blank=True, verbose_name='Habilitação')
-
-    def __str__(self):
-        return self.first_name + " " + self.last_name
-
-    class Meta:
-        ordering = ['first_name', 'last_name']
-        verbose_name = "Motorista"
-        verbose_name_plural = "Motoristas"
-
-
-class Administrador(Usuario):
     matricula = models.CharField(
         max_length=20, null=True, blank=True, verbose_name='Matrícula')
     funcao = models.CharField(
@@ -43,16 +28,5 @@ class Administrador(Usuario):
 
     class Meta:
         ordering = ['first_name', 'last_name']
-        verbose_name = "Administrador"
-        verbose_name_plural = "Administradores"
-
-
-class Porteiro(Usuario):
-
-    def __str__(self):
-        return self.first_name + " " + self.last_name
-
-    class Meta:
-        ordering = ['first_name', 'last_name']
-        verbose_name = "Porteiro"
-        verbose_name_plural = "Porteiros"
+        verbose_name = "Usuário"
+        verbose_name_plural = "Usuários"

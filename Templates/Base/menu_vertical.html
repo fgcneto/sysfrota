@@ -107,13 +107,13 @@
         <div data-i18n="Misc">Gestão de Usuários</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="#" class="menu-link" target="_blank">
+        <li class="menu-item {{ cadastrar_usuario }}">
+          <a href="{% url 'usuario:cadastrar_usuario' %}" class="menu-link" target="_blank">
             <div data-i18n="Basic">Cadastrar</div>
           </a>
         </li>
-        <li class="menu-item {{ listar_usuarios}}">
-          <a href="{% url 'usuario:listar_usuarios'%}" class="menu-link" target="_blank">
+        <li class="menu-item {{ listar_usuarios }}">
+          <a href="{% url 'usuario:listar_usuarios' %}" class="menu-link" target="_blank">
             <div data-i18n="Basic">Listagem</div>
           </a>
         </li>
@@ -143,8 +143,8 @@
         <div data-i18n="Form Layouts">Agenda</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="form-layouts-vertical.html" class="menu-link">
+        <li class="menu-item {{ cadastrar_agendamento }}">
+          <a href="{% url 'agenda:cadastrar_agendamento' %}" class="menu-link">
             <div data-i18n="Vertical Form">Criar</div>
           </a>
         </li>
@@ -169,7 +169,7 @@
           <ul class="menu-sub">
             <li class="menu-item {{ cadastrar_veiculo }}">
               <a href="{% url 'veiculo:cadastrar_veiculo' %}" class="menu-link">
-                <div data-i18n="Vertical Form">Adicionar</div>
+                <div data-i18n="Vertical Form">Cadastrar</div>
               </a>
             </li>
             <li class="menu-item {{ listar_veiculos }}">

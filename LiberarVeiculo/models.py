@@ -1,6 +1,6 @@
 from django.db import models
 from Agenda.models import Agenda
-from Usuario.models import Administrador, Porteiro
+from Usuario.models import Usuario
 
 
 class LiberarVeiculo(models.Model):
@@ -16,15 +16,15 @@ class LiberarVeiculo(models.Model):
         related_name="agendamento_liberacao_veiculo",
         verbose_name="Agenda")
     responsavel_liberacao = models.ForeignKey(
-        Administrador, on_delete=models.RESTRICT,
+        Usuario, on_delete=models.RESTRICT,
         related_name="responsavel_liberacao_veiculo",
         verbose_name="Administrador")
     porteiro_saida = models.ForeignKey(
-        Porteiro, on_delete=models.RESTRICT,
+        Usuario, on_delete=models.RESTRICT,
         related_name="porteiro_saida_liberacao_veiculo",
         verbose_name="Porteiro")
     porteiro_chegada = models.ForeignKey(
-        Porteiro, on_delete=models.RESTRICT,
+        Usuario, on_delete=models.RESTRICT,
         null=True, blank=True,
         related_name="porteiro_chegada_liberacao_veiculo",
         verbose_name="Porteiro")
