@@ -145,7 +145,7 @@
       <ul class="menu-sub">
         <li class="menu-item {{ cadastrar_agendamento }}">
           <a href="{% url 'agenda:cadastrar_agendamento' %}" class="menu-link">
-            <div data-i18n="Vertical Form">Criar</div>
+            <div data-i18n="Vertical Form">Cadastrar</div>
           </a>
         </li>
         <li class="menu-item {{ listar_agendamentos }}">
@@ -155,30 +155,53 @@
         </li>
       </ul>
     </li>
-        <!-- Forms & Tables -->
-        <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Frota - Veículo</span>
-        </li>
-    
-        <!-- Forms -->
-        <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-car"></i>
-            <div data-i18n="Form Layouts">Veículo</div>
+    <!-- Forms & Tables Liberar Veículo -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">Liberar Veículo</span>
+    </li>
+    <!-- Forms  Liberar Veículo-->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-car"></i>
+        <div data-i18n="Form Layouts">Liberaração de Veículo</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item {{ cadastrar_liberar_veiculo }}">
+          <a href="{% url 'liberarveiculo:cadastrar_liberar_veiculo' %}" class="menu-link">
+            <div data-i18n="Vertical Form">Cadastrar</div>
           </a>
-          <ul class="menu-sub">
-            <li class="menu-item {{ cadastrar_veiculo }}">
-              <a href="{% url 'veiculo:cadastrar_veiculo' %}" class="menu-link">
-                <div data-i18n="Vertical Form">Cadastrar</div>
-              </a>
-            </li>
-            <li class="menu-item {{ listar_veiculos }}">
-              <a href="{% url 'veiculo:listar_veiculos' %}" class="menu-link">
-                <div data-i18n="Basic">Listagem</div>
-              </a>
-            </li>
-          </ul>
         </li>
+        <li class="menu-item {{ listar_liberar_veiculos }}">
+          <a href="{% url 'liberarveiculo:listar_liberar_veiculos' %}" class="menu-link">
+            <div data-i18n="Basic">Listagem</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- Forms & Tables -->
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text">Frota - Veículo</span>
+    </li>
+    
+    <!-- Forms -->
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-car"></i>
+        <div data-i18n="Form Layouts">Veículo</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item {{ cadastrar_veiculo }}">
+          <a href="{% url 'veiculo:cadastrar_veiculo' %}" class="menu-link">
+            <div data-i18n="Vertical Form">Cadastrar</div>
+          </a>
+        </li>
+        <li class="menu-item {{ listar_veiculos }}">
+          <a href="{% url 'veiculo:listar_veiculos' %}" class="menu-link">
+            <div data-i18n="Basic">Listagem</div>
+          </a>
+        </li>
+      </ul>
+    </li>
 
     <!-- Misc -->
     <li class="menu-header small text-uppercase">
