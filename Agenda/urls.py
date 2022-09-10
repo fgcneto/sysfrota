@@ -8,4 +8,10 @@ app_name = 'agenda'
 urlpatterns = [
     path('cadastrar-agendamento',
          views.AgendaRegisterView.as_view(), name='cadastrar_agendamento'),
+    path('listar-agendamentos', views.AgendaListView.as_view(),
+         name='listar_agendamentos'),
+    path('editar-agendamento/<int:pk>',
+         views.AgendaEditView.as_view(), name='editar_agendamento'),
+    path('deletar-agendamento/<int:pk>',
+         views.agendamento_delete, name='deletar_agendamento'),
 ]

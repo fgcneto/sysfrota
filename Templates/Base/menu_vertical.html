@@ -133,14 +133,14 @@
 
     <!-- Forms & Tables -->
     <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">Agendamento</span>
+      <span class="menu-header-text">Agenda</span>
     </li>
 
     <!-- Forms -->
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-calendar"></i>
-        <div data-i18n="Form Layouts">Agenda</div>
+        <div data-i18n="Form Layouts">Agendamento</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item {{ cadastrar_agendamento }}">
@@ -148,8 +148,8 @@
             <div data-i18n="Vertical Form">Criar</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="form-layouts-horizontal.html" class="menu-link">
+        <li class="menu-item {{ listar_agendamentos }}">
+          <a href="{% url 'agenda:listar_agendamentos' %}" class="menu-link">
             <div data-i18n="Horizontal Form">Consultar</div>
           </a>
         </li>

@@ -18,16 +18,16 @@ class LiberarVeiculo(models.Model):
     responsavel_liberacao = models.ForeignKey(
         Usuario, on_delete=models.RESTRICT,
         related_name="responsavel_liberacao_veiculo",
-        verbose_name="Administrador")
+        verbose_name="Pesponsável pela liberação")
     porteiro_saida = models.ForeignKey(
         Usuario, on_delete=models.RESTRICT,
         related_name="porteiro_saida_liberacao_veiculo",
-        verbose_name="Porteiro")
+        verbose_name="Porteiro da Saída")
     porteiro_chegada = models.ForeignKey(
         Usuario, on_delete=models.RESTRICT,
         null=True, blank=True,
         related_name="porteiro_chegada_liberacao_veiculo",
-        verbose_name="Porteiro")
+        verbose_name="Porteiro da chegada")
     confirmacao_saida = models.BooleanField(
         null=True,
         verbose_name="Assinatura do Porteiro na Saída")
@@ -45,7 +45,7 @@ class LiberarVeiculo(models.Model):
     created_at = models.DateTimeField(
         verbose_name='Criado em:', auto_now_add=True)
     updated_at = models.DateTimeField(
-        verbose_name='Modificado em:', auto_now=True)
+        verbose_name='Modificado em:', auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

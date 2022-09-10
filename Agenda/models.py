@@ -1,5 +1,5 @@
 from Usuario.models import Usuario
-from Veiculo.models import RotaVeiculo, Veiculo
+from Veiculo.models import Veiculo
 from django.db import models
 
 
@@ -13,7 +13,7 @@ class Agenda(models.Model):
     created_at = models.DateTimeField(
         verbose_name='Criado em:', auto_now_add=True)
     updated_at = models.DateTimeField(
-        verbose_name='Modificado em:', auto_now=True)
+        verbose_name='Modificado em:', auto_now_add=True)
     is_active = models.BooleanField(default=True)
     descricao = models.CharField(
         max_length=250, null=True, blank=True, verbose_name='Descrição do Agendamento')
@@ -25,7 +25,6 @@ class Agenda(models.Model):
         null=True, blank=True, verbose_name="Hora da Saída")
     hora_retorno = models.TimeField(
         null=True, blank=True, verbose_name="Hora do Retorno")
-    rotas_veiculos = models.ManyToManyField(RotaVeiculo)
     veiculo = models.ForeignKey(
         Veiculo, on_delete=models.RESTRICT,
         related_name="veiculo_agenda",

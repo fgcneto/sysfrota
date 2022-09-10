@@ -7,4 +7,4 @@ class EditAgendamentoForm(ModelForm):
     class Meta:
         model = Agenda
         fields = ('descricao', 'data_saida', 'data_retorno', 'hora_saida',
-                  'hora_retorno', 'rotas_veiculos', 'veiculo', 'motorista', 'usuario_cadastro')
+                  'hora_retorno', 'veiculo', 'motorista', 'usuario_cadastro')

@@ -34,27 +34,27 @@ Listar
             <table id="tabela_veiculos" class="table table-striped">
               <thead>
                 <tr>
-                  <th>Marca</th>
-                  <th>Modelo</th>
-                  <th>Placa</th>
-                  <th>Kilometragem</th>
-                  <th>Ano Fabricação</th>
+                  <th>Descrição</th>
+                  <th>Saída</th>
+                  <th>Hora Saída</th>
+                  <th>Veículo</th>
+                  <th>Motorista</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                  {% for veiculo in veiculos %}
+                  {% for agenda in agendas %}
                   <tr>
-                      <td>{{ veiculo.marca }}</td>
-                      <td>{{ veiculo.tipo }}</td>
-                      <td>{{ veiculo.placa }}</td>
-                      <td>{{ veiculo.kilometragem }}</td>
-                      <td>{{ veiculo.ano_fabricacao }}</td>
+                      <td>{{ agenda.descricao }}</td>
+                      <td>{{ agenda.data_saida }}</td>
+                      <td>{{ agenda.hora_saida }}</td>
+                      <td>{{ agenda.veiculo }}</td>
+                      <td>{{ agenda.motorista }}</td>
                       <td>
-                        <a href="{% url 'veiculo:editar_veiculo' pk=veiculo.id %}">
+                        <a href="{% url 'agenda:editar_agendamento' pk=agenda.id %}">
                           <i class='bx bx-edit-alt text-warning'></i>
                         </a>
-                        <a href="{% url 'veiculo:deletar_veiculo' pk=veiculo.id %}">
+                        <a href="{% url 'agenda:deletar_agendamento' pk=agenda.id %}">
                           <i class='bx bx-x-circle text-danger'></i>
                         </a>
                       </td>
