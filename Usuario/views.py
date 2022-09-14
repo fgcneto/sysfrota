@@ -77,7 +77,7 @@ class UsuarioListView(ListView, LoginRequiredMixin):
 
 class UsuarioRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
     model = Usuario
-    fields = ['user_type', 'first_name', 'last_name', 'username',
+    fields = ['is_active', 'user_type', 'first_name', 'last_name', 'username',
               'password', 'email', 'cpf', 'matricula', 'habilitacao']
     success_message = 'Cadastrado!'
     sweetify_options = {'text': 'Informações do Usuário cadastradas com sucesso.',
