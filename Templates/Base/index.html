@@ -1,0 +1,26 @@
+{% load static %}
+{% load pagination_tag %}
+
+{% block extra_css %}
+<!-- calendar -->
+<link rel="stylesheet" href="{% static 'calendar/lib/main.css' %}">
+{% endblock extra_css %}
+
+{% block conteudo %}
+<div id="calendar">
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- calendar -->
+<script src="{% static 'calendar/lib/main.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var calendarUI = document.getElementById("calendar");
+    var calendar = new FullCalendar.Calendar(calendarUI, {
+
+    });
+    calendar.render();
+  });
+</script>
+{% endblock extra_js %}
