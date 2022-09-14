@@ -8,8 +8,8 @@ from .models import Usuario
 class EditUsuarioForm(forms.UserChangeForm):
     class Meta(forms.UserChangeForm.Meta):
         model = Usuario
-        fields = ('user_type', 'first_name', 'last_name', 'username',
-                  'password', 'email', 'cpf', 'matricula', 'habilitacao', 'funcao')
+        fields = ('is_active', 'user_type', 'first_name', 'last_name', 'username',
+                  'password', 'email', 'cpf', 'matricula', 'habilitacao')
 
     # def clean_email(self):
     #     email = self.cleaned_data['email']
