@@ -46,14 +46,13 @@ class UsuarioEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMix
 @login_required
 def usuario_delete(request, pk):
 
-    # print(Usuario.objects.filter(id=pk))
-
-    #     if id:
-    #         print(Usuario.objects.filter(id=pk).delete())
-    #         Usuario.objects.filter(id=pk).delete()
-    #         sweetify.success(request, 'Cadastro Excluído ',
-    #                          text='Informações do Usuário excluídas com \
-    #                                  sucesso.', timer=1500)
+    if id:
+        user = Usuario.objects.get(id=pk)
+        user.is_active = False
+        user.save()
+        sweetify.success(request, 'Cadastro Desativado ',
+                         text='Informações do Usuário desativadas com \
+                                     sucesso.', timer=1500)
     return redirect("usuario:listar_usuarios")
 
 

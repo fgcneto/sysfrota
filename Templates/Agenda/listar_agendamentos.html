@@ -15,7 +15,7 @@ Listar
 {% endblock %}
 
 {% block conteudo %}
-
+                    
 <div class="row">
 
   <div class="col-xl">
@@ -30,6 +30,68 @@ Listar
             </small>
         </div>
         <div class="card-body">
+
+          {% for agenda in agendas %}
+
+          <div class="col-2 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                  <div class="avatar flex-shrink-0">
+                    <img
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalScrollable"
+                     src={% static 'assets/img/calendar/calendar.png' %} 
+                      alt="Icon Car" class="rounded" 
+                    />
+                  </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalScrollableTitle">Detalhes do Agendamento</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Descrição: {{ agenda.descricao }}                      
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Fim Modal -->                
+
+                <span class="fw-semibold d-block mb-1">
+                  Modelo: {{ agenda.veiculo.tipo }}
+                  <br>
+                  Placa: {{ agenda.veiculo.placa }}
+                </span>
+                <!-- <h3 class="card-title mb-2">{{ agenda.motorista }}</h3> -->
+                <small class="fw-semibold">
+                  Data saída: {{ agenda.hora_saida }}
+                  <br>
+                  Hora saída: {{ agenda.hora_saida }}
+                </small>
+              </div>
+            </div>
+          </div>
+            {% if forloop.counter|divisibleby:5 %}
+              <h5>entrou</h5>
+              <br>
+            {% endif %}
+          {% endfor %}
           <div class="table-responsive text-nowrap">
             <table id="tabela_veiculos" class="table table-striped">
               <thead>
@@ -46,7 +108,7 @@ Listar
                   {% for agenda in agendas %}
                   <tr>
                       <td>{{ agenda.descricao }}</td>
-                      <td>{{ agenda.data_saida }}</td>
+                      <td>{{ agenda.data_saida|date:"D M Y" }}</td>
                       <td>{{ agenda.hora_saida }}</td>
                       <td>{{ agenda.veiculo }}</td>
                       <td>{{ agenda.motorista }}</td>

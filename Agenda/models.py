@@ -14,7 +14,6 @@ class Agenda(models.Model):
         verbose_name='Criado em:', auto_now_add=True)
     updated_at = models.DateTimeField(
         verbose_name='Modificado em:', auto_now_add=True)
-    is_active = models.BooleanField(default=True)
     descricao = models.CharField(
         max_length=250, null=True, blank=True, verbose_name='Descrição do Agendamento')
     data_saida = models.DateField(

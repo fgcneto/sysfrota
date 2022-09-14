@@ -15,7 +15,7 @@ from sweetify.views import SweetifySuccessMixin
 class CadastrarLiberarVeiculo(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
     model = LiberarVeiculo
     fields = ['observacoes', 'agendamento', 'responsavel_liberacao', 'porteiro_saida',
-              'porteiro_chegada', 'confirmacao_saida', 'confirmacao_chegada', 'km_saida', 'km_chegada']
+              'porteiro_chegada', 'confirmacao_saida', 'confirmacao_chegada', 'km_saida', 'km_chegada', 'data_hora_saida', 'data_hora_chegada']
     success_message = 'Cadastrado!'
     sweetify_options = {'text': 'Informações da Liberação do Veículo cadastradas com sucesso.',
                         'timer': 2500

@@ -46,6 +46,10 @@ class LiberarVeiculo(models.Model):
         verbose_name='Criado em:', auto_now_add=True)
     updated_at = models.DateTimeField(
         verbose_name='Modificado em:', auto_now_add=True)
+    data_hora_saida = models.DateTimeField(
+        null=True, blank=True, verbose_name="Data e Hora da Saída")
+    data_hora_chegada = models.DateTimeField(
+        null=True, blank=True, verbose_name="Data e Hora da Chegada")
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

@@ -14,6 +14,6 @@ class LiberarVeiculoFilter(django_filters.FilterSet):
 
     def filtro_liberar_veiculo(self, queryset, name, value):
         return queryset.filter(
-            Q(marca__icontains=value) | Q(placa__icontains=value) | Q(
-                modelo__icontains=value) | Q(ano_fabricacao__icontains=value)
+            Q(data_hora_saida__icontains=value) | Q(
+                data_hora_chegada__icontains=value)
         )

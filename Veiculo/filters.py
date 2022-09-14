@@ -14,6 +14,7 @@ class VeiculoFilter(django_filters.FilterSet):
 
     def filtro_veiculo(self, queryset, name, value):
         return queryset.filter(
-            Q(marca__icontains=value) | Q(placa__icontains=value) | Q(
-                modelo__icontains=value) | Q(ano_fabricacao__icontains=value)
+            Q(marca__icontains=value) | Q(placa__icontains=value)
+            | Q(ano_fabricacao__icontains=value) | Q(tipo__icontains=value) | Q(kilometragem__icontains=value) | Q(created_at__icontains=value) | Q(updated_at__icontains=value)
+
         )
