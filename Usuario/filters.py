@@ -14,6 +14,6 @@ class UsuarioFilter(django_filters.FilterSet):
 
     def filtro_usuario(self, queryset, username, value):
         return queryset.filter(
-            Q(username__icontains=value) | Q(email__icontains=value) | Q(
-                funcao__icontains=value) | Q(user_type__icontains=value)
+            Q(username__icontains=value) | Q(
+                email__icontains=value) | Q(user_type__icontains=value)
         )

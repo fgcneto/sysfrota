@@ -25,7 +25,6 @@ def home(request):
 
 def home_logout(request):
     if not request.user.is_authenticated:
-        #  return render(request, 'myapp/login_error.html)
         return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
 
@@ -45,14 +44,21 @@ class UsuarioEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMix
 
 @login_required
 def usuario_delete(request, pk):
+    user = Usuario.objects.get(id=pk)
 
-    if id:
-        user = Usuario.objects.get(id=pk)
+    if id and user.is_active == True:
         user.is_active = False
         user.save()
-        sweetify.success(request, 'Cadastro Desativado ',
-                         text='Informações do Usuário desativadas com \
-                                     sucesso.', timer=1500)
+        sweetify.info(request, 'Cadastro Desativado ',
+                      text='Informações do Usuário desativadas com \
+                                     sucesso.', timer=3000)
+    elif user.is_active == False:
+        user.is_active = True
+        user.save()
+        sweetify.success(request, 'Cadastro Ativado ',
+                         text='Informações do Usuário Ativadas com \
+                                sucesso.', timer=3000)
+
     return redirect("usuario:listar_usuarios")
 
 

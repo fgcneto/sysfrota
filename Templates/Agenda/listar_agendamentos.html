@@ -80,7 +80,7 @@ Listar
                 </span>
                 <!-- <h3 class="card-title mb-2">{{ agenda.motorista }}</h3> -->
                 <small class="fw-semibold">
-                  Data saída: {{ agenda.hora_saida }}
+                  Data: {{ agenda.data_saida }}
                   <br>
                   Hora saída: {{ agenda.hora_saida }}
                 </small>
@@ -101,6 +101,7 @@ Listar
                   <th>Hora Saída</th>
                   <th>Veículo</th>
                   <th>Motorista</th>
+                  <th>Cadastrado por</th>
                   <th></th>
                 </tr>
               </thead>
@@ -108,10 +109,11 @@ Listar
                   {% for agenda in agendas %}
                   <tr>
                       <td>{{ agenda.descricao }}</td>
-                      <td>{{ agenda.data_saida|date:"D M Y" }}</td>
+                      <td>{{ agenda.data_saida }}</td>
                       <td>{{ agenda.hora_saida }}</td>
                       <td>{{ agenda.veiculo }}</td>
                       <td>{{ agenda.motorista }}</td>
+                      <td>{{ agenda.usuario_cadastro }}</td>
                       <td>
                         <a href="{% url 'agenda:editar_agendamento' pk=agenda.id %}">
                           <i class='bx bx-edit-alt text-warning'></i>
