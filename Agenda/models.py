@@ -25,19 +25,19 @@ class Agenda(models.Model):
     hora_retorno = models.TimeField(
         verbose_name="Hora do Retorno")
     veiculo = models.ForeignKey(
-        Veiculo, on_delete=models.RESTRICT,
+        Veiculo, on_delete=models.PROTECT,
         related_name="veiculo_agenda",
         verbose_name="Veículo"
     )
     motorista = models.ForeignKey(
-        Usuario, on_delete=models.RESTRICT,
+        Usuario, on_delete=models.PROTECT,
         null=True,
         blank=True,
         related_name="motorista_agenda",
         verbose_name="Motorista"
     )
     usuario_cadastro = models.ForeignKey(
-        Usuario, on_delete=models.RESTRICT,
+        Usuario, on_delete=models.PROTECT,
         related_name="usuario_cadastro_agenda",
         verbose_name="Usuário do cadastro"
     )

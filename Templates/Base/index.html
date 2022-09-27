@@ -17,6 +17,9 @@
         <div class="card-body">
           <div class="table-responsive text-nowrap">
             <div id="calendar" class="container" style="padding: auto;">
+              <div id="events">
+
+              </div>
             </div>
             <br>
          </div>
@@ -35,16 +38,26 @@
   document.addEventListener('DOMContentLoaded', function(){
     var calendarUI = document.getElementById("calendar");
     var calendar = new FullCalendar.Calendar(calendarUI, {
+      timeZone: 'UTC',
+      initialView: 'dayGridMonth',
       events: [
-        {% for agenda in object_list %}
-          {
-            Descrição: "{{ agenda.descricao }}",
-            Placa: "{{ agenda.veiculo.placa }}",
-            Data: "{{ agenda.data_saida |date:"D-M-Y" }}",
-            Saída: "{{ agenda.hora_saida }}"
-          },
-        {% endfor%}  
-      ]
+//        {% for agenda in agendas %}
+//          {
+//            title: '{{ agenda.descricao }}',
+//            start: '{{ agenda.data_saida }}'
+//          },
+//        {% endfor %} 
+        {
+          title: 'UFRN Campo Central',
+          start: '2022-09-22'
+        },    
+        {
+          title: 'UFRN Campo Central',
+          start: '2022-09-23'
+        }
+      ],
+      editable: false,
+      selectable: false
     });
     calendar.render();
     calendar.setOption('locale', 'pt-br')
