@@ -16,6 +16,10 @@ celerybeat-schedule
 .idea
 .DS_Store
 
+#migrations
+*_initial.py
+000*_.py
+
 # Arquivos com instruções de config e install
 instrucions.sh
 

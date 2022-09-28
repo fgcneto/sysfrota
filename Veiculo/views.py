@@ -50,21 +50,6 @@ def veiculo_edit(request, pk):
 
     return render(request, template_name, context)
 
-# class CadastrarVeiculo(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
-#     model = Veiculo
-#     fields = ['marca', 'tipo', 'placa', 'kilometragem', 'ano_fabricacao']
-#     success_message = 'Cadastrado!'
-#     sweetify_options = {'text': 'Informações do Veículo cadastradas com sucesso.',
-#                         'timer': 2500
-#                         }
-#     template_name = 'Veiculo/cadastrar_veiculo.html'
-#     success_url = reverse_lazy('veiculo:listar_veiculos')
-
-#     def get_context_data(self, **kwargs):
-#         context = super(CadastrarVeiculo, self).get_context_data(**kwargs)
-#         context['cadastrar_veiculo'] = 'active'
-#         return context
-
 
 class VeiculoListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
     model = Veiculo
@@ -83,19 +68,6 @@ class VeiculoListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
         context['listar_veiculos'] = 'active'
         context['filterset'] = self.filterset
         return context
-
-
-# class VeiculoEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
-#     model = Veiculo
-#     form_class = forms.EditVeiculoForm
-#     template_name = 'Veiculo/cadastrar_veiculo.html'
-#     success_message = 'Alterado com Sucesso!'
-#     sweetify_options = {'text': 'Informações do Veículo alteradas com sucesso.',
-#                         'timer': 2500
-#                         }
-
-#     def get_success_url(self):
-#         return reverse_lazy('veiculo:listar_veiculos')
 
 
 @login_required
