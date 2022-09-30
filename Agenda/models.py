@@ -16,14 +16,10 @@ class Agenda(models.Model):
         verbose_name='Modificado em:', auto_now_add=True)
     descricao = models.CharField(
         max_length=250, null=True, blank=True, verbose_name='Descrição do Agendamento')
-    data_saida = models.DateField(
-        verbose_name="Data da Saída")
-    data_retorno = models.DateField(
+    data_saida = models.DateTimeField(
+        verbose_name="Data e Hora da Saída")
+    data_retorno = models.DateTimeField(
         verbose_name="Data do Retorno")
-    hora_saida = models.TimeField(
-        verbose_name="Hora da Saída")
-    hora_retorno = models.TimeField(
-        verbose_name="Hora do Retorno")
     veiculo = models.ForeignKey(
         Veiculo, on_delete=models.PROTECT,
         related_name="veiculo_agenda",
@@ -43,9 +39,9 @@ class Agenda(models.Model):
     )
 
     def __str__(self):
-        return str(self.descricao) + " - " + str(self.veiculo) + " - " + str(self.motorista) + " - " + str(self.data_saida) + " - " + str(self.hora_saida)
+        return str(self.descricao) + " - " + str(self.veiculo) + " - " + str(self.motorista) + " - " + str(self.data_saida)
 
     class Meta:
-        ordering = ['-data_saida', '-hora_saida']
+        ordering = ['-data_saida']
         verbose_name = "Agenda"
         verbose_name_plural = "Agendas"

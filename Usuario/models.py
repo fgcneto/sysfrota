@@ -14,7 +14,7 @@ class Usuario(AbstractUser):
         (3, 'Porteiro'),
     )
     user_type = models.PositiveSmallIntegerField(
-        verbose_name='Tipo de Usuário', choices=USER_TYPE_CHOICES)
+        verbose_name='Tipo de Usuário', choices=USER_TYPE_CHOICES, null=True, blank=True)
     cpf = CPFField('cpf', unique=True, null=True, blank=True)
     habilitacao = models.CharField(
         max_length=20, null=True, blank=True, verbose_name='Habilitação')

@@ -54,7 +54,7 @@ Listar
                 <tr>
                   <th>Descrição</th>
                   <th>Saída</th>
-                  <th>Hora Saída</th>
+                  <th>Chegada</th>
                   <th>Veículo</th>
                   <th>Motorista</th>
                   <th>Cadastrado por</th>
@@ -65,8 +65,8 @@ Listar
                   {% for agenda in agendas %}
                   <tr>
                       <td>{{ agenda.descricao }}</td>
-                      <td>{{ agenda.data_saida|date:"d-m-Y" }}</td>
-                      <td>{{ agenda.hora_saida|date:"H:i" }}</td>
+                      <td>{{ agenda.data_saida|date:"d-m-Y H:i" }}</td>
+                      <td>{{ agenda.data_retorno|date:"d-m-Y H:i" }}</td>
                       <td>{{ agenda.veiculo }}</td>
                       <td>{{ agenda.motorista }}</td>
                       <td>{{ agenda.usuario_cadastro }}</td>

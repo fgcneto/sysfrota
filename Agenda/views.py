@@ -1,3 +1,5 @@
+from django.utils.timezone import now
+from datetime import datetime, timedelta
 from urllib import request
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -16,11 +18,11 @@ from sweetify.views import SweetifySuccessMixin
 
 class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
     model = Agenda
-    fields = ['descricao', 'data_saida', 'data_retorno', 'hora_saida',
-              'hora_retorno', 'veiculo', 'motorista']
-    success_message = 'Cadastrado!'
-    sweetify_options = {'text': 'Informações do Agendamento cadastradas com sucesso.',
-                        'timer': 2500
+    fields = ['descricao', 'data_saida',
+              'data_retorno', 'veiculo', 'motorista']
+    success_message = 'Cadastrado com Sucesso!'
+    sweetify_options = {'text': 'Informações do Agendamento cadastradas com sucesso!',
+                        'timer': 3000
                         }
     template_name = 'Agenda/cadastrar_agendamento.html'
     success_url = reverse_lazy('agenda:listar_agendamentos')
@@ -31,15 +33,34 @@ class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequired
         return context
 
     def form_valid(self, form):
+        data_atual = now() - timedelta(hours=3)
         self.object = form.save(commit=False)
         self.object.usuario_cadastro = self.request.user
-        self.object.save()
         response = super(SweetifySuccessMixin, self).form_valid(form)
         success_message = self.get_success_message(form.cleaned_data)
-        if success_message:
-            sweetify.success(self.request, success_message,
-                             **self.get_sweetify_options())
-        return response
+
+        # salvar o agendamento de data_saida for maior que data retorno
+        if self.object.data_saida < self.object.data_retorno and self.object.data_saida >= data_atual:
+            self.object.save()
+            response = super(SweetifySuccessMixin, self).form_valid(form)
+            success_message = self.get_success_message(form.cleaned_data)
+            if success_message:
+                sweetify.success(self.request, success_message,
+                                 **self.get_sweetify_options())
+            return response
+
+        if self.object.data_saida > self.object.data_retorno \
+                or self.object.data_saida == self.object.data_retorno \
+                or self.object.data_saida < data_atual:
+            sweetify.error(self.request, 'Erro ao cadastrar ',
+                           text='A data de saída do agendamento é igual ou superior a data de retorno ou data de ontem', timer=4000)
+            return redirect("agenda:cadastrar_agendamento")
+
+    def get_error_message(self, errors):
+        return self.error_message % errors
+
+    def get_sweetify_options(self):
+        return self.sweetify_options
 
 
 class AgendaListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
@@ -67,8 +88,38 @@ class AgendaEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixi
     template_name = 'Agenda/cadastrar_agendamento.html'
     success_message = 'Alterado com Sucesso!'
     sweetify_options = {'text': 'Informações do Agendamento alteradas com sucesso.',
-                        'timer': 2000
+                        'timer': 3000
                         }
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.usuario_cadastro = self.request.user
+        data_atual = now() - timedelta(hours=3)
+
+        # SÓ SALVA o agendamento se de data_saida for maior que data retorno
+        # E se data de saida maior ou igual a data atual
+        # E se data de retorno maior ou igual data_atual
+        if self.object.data_saida < self.object.data_retorno \
+                and self.object.data_saida >= data_atual:
+            self.object.save()
+            response = super(SweetifySuccessMixin, self).form_valid(form)
+            success_message = self.get_success_message(form.cleaned_data)
+            if success_message:
+                sweetify.success(self.request, success_message,
+                                 **self.get_sweetify_options())
+            return response
+
+        # não permite salvar o agendamento
+        if self.object.data_saida > self.object.data_retorno or self.object.data_saida == self.object.data_retorno or self.object.data_saida < data_atual or self.object.data_retorno < data_atual:
+            sweetify.error(self.request, 'Erro ao editar ',
+                           text='Data não pode ser ontem ou Data de saída igual ou superior a data de retorno', timer=5000)
+            return redirect("agenda:listar_agendamentos")
+
+    def get_error_message(self, errors):
+        return self.error_message % errors
+
+    def get_sweetify_options(self):
+        return self.sweetify_options
 
     def get_success_url(self):
         return reverse_lazy('agenda:listar_agendamentos')
@@ -81,8 +132,8 @@ def agendamento_delete(request, pk):
         Agenda.objects.filter(id=pk).delete()
         sweetify.success(request, 'Cadastro Excluído ',
                          text='Informações do Agendamento excluídas com \
-                                     sucesso.', timer=2000)
+                                     sucesso.', timer=3000)
     else:
         sweetify.error(request, 'Erro ao excluir ',
-                       text='Este Agendamento já possui uma Liberação cadastrada', timer=3000)
+                       text='Este Agendamento já possui uma Liberação cadastrada', timer=3500)
     return redirect("agenda:listar_agendamentos")

@@ -23,7 +23,12 @@ Cadastrar
           <small class="text-muted float-end">Informações cadastrais sobre o usuário</small>
         </div>
         <div class="card-body">
-          <form class="forms-style" method="POST" enctype="multipart/form-data" novalidate="true"> 
+          <form method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+          </form>
+          {% comment %} <form class="forms-style" method="POST" enctype="multipart/form-data" novalidate="true"> 
             {% csrf_token %}
             <div class="tab-content" id="nav-tabContent">           
               <div class="tab-pane fade show active" id="nav-pessoais" role="tabpanel"  aria-labelledby="nav-pessoais-tab">
@@ -162,7 +167,7 @@ Cadastrar
                 </div>
               </div>  
             </div>
-          </form>  
+          </form>   {% endcomment %}
         </div>
       </div>
     </div>
