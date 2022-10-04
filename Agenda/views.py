@@ -17,21 +17,21 @@ import sweetify
 from sweetify.views import SweetifySuccessMixin
 
 
-def verifica_conflito_agendamento_datas(self):
-    agendas = Agenda.objects.all()
-    for agenda in agendas:
-        # se o veículo for igual, verifica o conflito de datas
-        if self.object.veiculo == agenda.veiculo:
-            if self.object.data_saida >= agenda.data_saida \
-                and self.object.data_saida <= agenda.data_retorno \
-                    and self.object.data_retorno >= agenda.data_saida \
-                    and self.object.data_retorno <= agenda.data_retorno or (self.object.data_retorno >= agenda.data_saida and self.object.data_retorno <= agenda.data_retorno):
-                return True
-            else:
-                return False
+# def verifica_conflito_agendamento_datas(self):
+#     agendas = Agenda.objects.all()
+#     for agenda in agendas:
+#         # se o veículo for igual, verifica o conflito de datas
+#         if self.object.veiculo == agenda.veiculo:
+#             if self.object.data_saida >= agenda.data_saida \
+#                 and self.object.data_saida <= agenda.data_retorno \
+#                     and self.object.data_retorno >= agenda.data_saida \
+#                     and self.object.data_retorno <= agenda.data_retorno or (self.object.data_retorno >= agenda.data_saida and self.object.data_retorno <= agenda.data_retorno):
+#                 return True
+#             else:
+#                 return False
 
-        else:
-            return False
+#         else:
+#             return False
 
 
 class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
@@ -57,8 +57,24 @@ class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequired
         response = super(SweetifySuccessMixin, self).form_valid(form)
         success_message = self.get_success_message(form.cleaned_data)
 
+        def verifica_conflito_agendamento_datas(self):
+            agendas = Agenda.objects.all()
+            for agenda in agendas:
+                # se o veículo for igual, verifica o conflito de datas
+                if self.object.veiculo == agenda.veiculo:
+                    if self.object.data_saida >= agenda.data_saida \
+                        and self.object.data_saida <= agenda.data_retorno \
+                            and self.object.data_retorno >= agenda.data_saida \
+                            and self.object.data_retorno <= agenda.data_retorno or (self.object.data_retorno >= agenda.data_saida and self.object.data_retorno <= agenda.data_retorno):
+                        return True
+                    else:
+                        return False
+
+                else:
+                    return False
+
         if not verifica_conflito_agendamento_datas(self):
-            # salvar o agendamento de data_saida for maior que data retorno
+            # salvar o agendamento se data_saida for maior que data_retorno
             if self.object.data_saida < self.object.data_retorno and self.object.data_saida >= data_atual:
                 self.object.save()
                 response = super(SweetifySuccessMixin, self).form_valid(form)
@@ -118,6 +134,24 @@ class AgendaEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixi
         self.object = form.save(commit=False)
         self.object.usuario_cadastro = self.request.user
         data_atual = now() - timedelta(hours=3)
+
+        def verifica_conflito_agendamento_datas(self):
+            agendas = Agenda.objects.all()
+            for agenda in agendas:
+                # se o veículo for igual, verifica o conflito de datas
+                print(self.object.veiculo)
+                print(agenda.veiculo)
+                if self.object.veiculo == agenda.veiculo:
+                    if self.object.data_saida >= agenda.data_saida \
+                        and self.object.data_saida <= agenda.data_retorno \
+                            and self.object.data_retorno >= agenda.data_saida \
+                            and self.object.data_retorno <= agenda.data_retorno or (self.object.data_retorno >= agenda.data_saida and self.object.data_retorno <= agenda.data_retorno):
+                        return True
+                    else:
+                        return False
+
+                else:
+                    return False
 
         if not verifica_conflito_agendamento_datas(self):
             # SÓ SALVA o agendamento se data_saida for maior que data retorno
