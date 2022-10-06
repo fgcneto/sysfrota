@@ -43,15 +43,13 @@ class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequired
         def verifica_conflito_agendamento_datas(self):
             agendas = Agenda.objects.all()
             for agenda in agendas:
-                # se o veículo for igual, verifica o conflito de datas
+                # se o veículo for igual
                 if self.object.veiculo == agenda.veiculo:
-                    if self.object.data_saida >= agenda.data_saida \
-                            and self.object.data_saida <= agenda.data_retorno \
-                            and self.object.data_retorno >= agenda.data_saida \
-                            and self.object.data_retorno <= agenda.data_retorno \
-                            or (self.object.data_retorno >= agenda.data_saida
-                                and self.object.data_retorno <= agenda.data_retorno) \
-                            or (self.object.data_saida < agenda.data_saida and self.object.data_retorno > agenda.data_retorno):
+                    if (self.object.data_saida >= agenda.data_saida
+                        and self.object.data_saida <= agenda.data_retorno) \
+                        or (self.object.data_retorno >= agenda.data_saida
+                            and self.object.data_retorno <= agenda.data_retorno): \
+
                         return True
             return False
 
@@ -120,20 +118,13 @@ class AgendaEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixi
         def verifica_conflito_agendamento_datas(self):
             agendas = Agenda.objects.all()
             for agenda in agendas:
-                # se o veículo for igual, verifica o conflito de datas
-                print("Request: ", self.object.veiculo,
-                      " x salvo no banco: ", agenda.veiculo)
-                print(self.object.data_saida, " x ", agenda.data_saida)
-                print(self.object.data_retorno, " x ", agenda.data_retorno)
-                print(self.object.veiculo == agenda.veiculo)
-                if self.object.veiculo == agenda.veiculo:
-                    if self.object.data_saida >= agenda.data_saida \
-                            and self.object.data_saida <= agenda.data_retorno \
-                            and self.object.data_retorno >= agenda.data_saida \
-                            and self.object.data_retorno <= agenda.data_retorno \
-                            or (self.object.data_retorno >= agenda.data_saida
-                                and self.object.data_retorno <= agenda.data_retorno) \
-                            or (self.object.data_saida < agenda.data_saida and self.object.data_retorno > agenda.data_retorno):
+                # se o veículo for igual e se objeto da request for diferente do banco
+                if self.object.veiculo == agenda.veiculo and self.object != agenda:
+                    if (self.object.data_saida >= agenda.data_saida
+                        and self.object.data_saida <= agenda.data_retorno) \
+                        or (self.object.data_retorno >= agenda.data_saida
+                            and self.object.data_retorno <= agenda.data_retorno): \
+
                         return True
             return False
 
