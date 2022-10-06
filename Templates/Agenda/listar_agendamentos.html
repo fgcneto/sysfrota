@@ -170,20 +170,14 @@ Listar
       initialView: 'dayGridMonth',
       events: [
       
-//        {% for agenda in agendas_json %}
-//          {
-//           title: '{{ agenda.descricao }}',
-//            start: '{{ agenda.data_saida }}'
-//          },
-//        {% endfor %} 
-        {
-          title: 'UFRN Campo Central',
-          start: '2022-09-22'
-        },    
-        {
-          title: 'UFRN Campo Central',
-          start: '2022-09-23'
-        }
+        {% for agenda in events %}
+          {
+            title: '{{ agenda.title }}',
+            start: '{{ agenda.start }}',
+            end: '{{ agenda.end }}'
+          },
+        {% endfor %} 
+
       ],
       editable: false,
       selectable: false

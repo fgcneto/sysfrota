@@ -1,14 +1,12 @@
-import re
+from django.shortcuts import render, redirect
 from django.utils.timezone import now
-from datetime import datetime, timedelta
-from urllib import request
+from datetime import timedelta
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.views.generic import ListView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
-from django.http import HttpResponseRedirect
 from Agenda.models import Agenda
 from Agenda.filters import AgendaFilter
 from Agenda import forms
@@ -94,10 +92,23 @@ class AgendaListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
         return self.filterset.qs.distinct()
 
     def get_context_data(self, **kwargs):
+        events = Agenda.objects.all()
+        event_list = []
+
+        for event in events:
+            event_list.append(
+                {
+                    "title": event.descricao,
+                    "start": event.data_saida.strftime("%Y-%m-%dT%H:%M:%S"),
+                    "end": event.data_retorno.strftime("%Y-%m-%dT%H:%M:%S"),
+
+                }
+            )
         context = super(AgendaListView, self).get_context_data(**kwargs)
         context['agendas'] = Agenda.objects.all()
         context['listar_agendamentos'] = 'active'
         context['filterset'] = self.filterset
+        context['events'] = event_list
         return context
 
 
