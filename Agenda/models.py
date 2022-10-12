@@ -39,7 +39,7 @@ class Agenda(models.Model):
     )
 
     def __str__(self):
-        return str(self.descricao) + " - " + str(self.veiculo) + " - " + str(self.motorista) + " - " + str(self.data_saida)
+        return str(self.veiculo) + " - " + str(self.data_saida)
 
     class Meta:
         ordering = ['-data_saida']

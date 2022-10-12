@@ -12,7 +12,7 @@ class LiberarVeiculoFilter(django_filters.FilterSet):
         model = LiberarVeiculo
         fields = ['texto']
 
-    def filtro_liberar_veiculo(self, queryset, name, value):
+    def filtro_liberar_veiculo(self, queryset, value):
         return queryset.filter(
             Q(data_hora_saida__icontains=value) | Q(
                 data_hora_chegada__icontains=value)

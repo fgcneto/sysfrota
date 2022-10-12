@@ -29,7 +29,15 @@ def home_logout(request):
 
 
 def home_authenticated(request):
-    return render(request, "Base/base.html")
+    # user Administrativo
+    if request.user.user_type == 1:
+        return render(request, "Base/base.html")
+    # user Motorista
+    elif request.user.user_type == 2:
+        return redirect("agenda:porteiro_listar_agendamentos")
+    # user porteiro
+    elif request.user.user_type == 3:
+        return redirect("agenda:porteiro_listar_agendamentos")
 
 
 # @login_required

@@ -21,6 +21,7 @@ class LiberarVeiculo(models.Model):
         verbose_name="Pesponsável pela liberação")
     porteiro_saida = models.ForeignKey(
         Usuario, on_delete=models.RESTRICT,
+        null=True, blank=True,
         related_name="porteiro_saida_liberacao_veiculo",
         verbose_name="Porteiro da Saída")
     porteiro_chegada = models.ForeignKey(
@@ -50,12 +51,11 @@ class LiberarVeiculo(models.Model):
         null=True, blank=True, verbose_name="Data e Hora da Saída")
     data_hora_chegada = models.DateTimeField(
         null=True, blank=True, verbose_name="Data e Hora da Chegada")
-    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return str(self.agendamento) + " - " + str(self.responsavel_liberacao) + " - " + str(self.agendamento.motorista) + " - " + str(self.agendamento.veiculo) + " - " + str(self.agendamento.hora_saida)
 
     class Meta:
-        ordering = ['agendamento', 'responsavel_liberacao']
+        ordering = ['-agendamento']
         verbose_name = "Liberar Veículo"
         verbose_name_plural = "Liberar Veículos"

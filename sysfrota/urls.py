@@ -23,5 +23,6 @@ urlpatterns = [
     path('veiculo/', include('Veiculo.urls')),
     path('usuario/', include('Usuario.urls')),
     path('agenda/', include('Agenda.urls')),
+    path('porteiro/', include('Agenda.urls')),
     path('liberarveiculo/', include('LiberarVeiculo.urls'))
 ]
