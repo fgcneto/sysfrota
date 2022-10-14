@@ -84,27 +84,30 @@
                             <thead>
                               <tr>
                                 <th>Observações</th>
-                                <th>Agendamento</th>
-                                <th>KM Saída</th>
-                                <th>KM Chegada</th>
+                                <th>Veículo</th>
+                                <th>Data/Hora Saída</th>
+                                <th>Descrição</th>
                               </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                                {% for liberarveiculo in liberarveiculos %}
-                                <tr>
-                                    <td>{{ liberarveiculo.observacoes }}</td>
-                                    <td>{{ liberarveiculo.agendamento }}</td>
-                                    <td>{{ liberarveiculo.km_saida }}</td>
-                                    <td>{{ liberarveiculo.km_chegada }}</td>
-                                    <td>
-                                      <a href="{% url 'liberarveiculo:editar_liberar_veiculo' pk=liberarveiculo.id %}">
-                                        <i class='bx bx-edit-alt text-warning'></i>
-                                      </a>
-                                      <a href="{% url 'liberarveiculo:deletar_liberar_veiculo' pk=liberarveiculo.id %}">
-                                        <i class='bx bx-x-circle text-danger'></i>
-                                      </a>
-                                    </td>
-                                </tr>
+                              {% for liberarveiculo in liberarveiculos %}
+                              <tr>
+                                <td>{{ liberarveiculo.observacoes }}</td>
+                                <td>{{ liberarveiculo.agendamento.veiculo }}</td>
+                                <td>{{ liberarveiculo.agendamento.data_saida }}</td>
+                                <td>{{ liberarveiculo.agendamento.descricao }}</td>
+                                <td>
+                                  {% if liberarveiculo.porteiro_saida == None %}
+                                    <a href="{% url 'liberarveiculo:liberarveiculo_porteiro_saida' pk=liberarveiculo.id %}">
+                                      <button type="button" class="btn rounded-pill btn-outline-success">Liberar</button>
+                                    </a>
+                                  {% else %}
+                                    <a href="{% url 'liberarveiculo:liberarveiculo_porteiro_chegada' pk=liberarveiculo.id %}">
+                                      <button type="button" class="btn rounded-pill btn-outline-success">Liberar</button>
+                                    </a>
+                                  {% endif %}
+                                </td>
+                              </tr>
                               {% endfor %}
                             </tbody>
                           </table>

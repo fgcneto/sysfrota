@@ -34,10 +34,10 @@ def home_authenticated(request):
         return render(request, "Base/base.html")
     # user Motorista
     elif request.user.user_type == 2:
-        return redirect("agenda:porteiro_listar_agendamentos")
+        return redirect("liberarveiculo:porteiro_listar_liberarveiculos")
     # user porteiro
     elif request.user.user_type == 3:
-        return redirect("agenda:porteiro_listar_agendamentos")
+        return redirect("liberarveiculo:porteiro_listar_liberarveiculos")
 
 
 # @login_required

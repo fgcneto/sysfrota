@@ -189,38 +189,3 @@ def agendamento_delete(request, pk):
         sweetify.error(request, 'Erro ao excluir ',
                        text='Este Agendamento já possui uma Liberação cadastrada', timer=3500)
     return redirect("agenda:listar_agendamentos")
-
-
-class PorteiroAgendaListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
-    model = LiberarVeiculo
-    paginate_by = 6
-    template_name = 'Agenda/Porteiro/agenda_porteiro.html'
-    context_object_name = 'agendas'
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        self.filterset = LiberarVeiculoFilter(
-            self.request.GET, queryset=queryset)
-        return self.filterset.qs.distinct()
-
-    def get_context_data(self, **kwargs):
-        dia_atual = now().date()
-        agendas = LiberarVeiculo.objects.all()
-        agenda_atual = []
-
-        for agenda in agendas:
-            # print("data agendamento: ", agenda.agendamento.data_saida.date())
-            # print("dia atual", dia_atual)
-            # print(type(agenda.agendamento.data_saida.date()))
-            # print(type(dia_atual))
-            # print(agenda.agendamento.data_saida == dia_atual)
-            # if agenda.agendamento.data_saida == dia_atual:
-            #     agenda_atual.append(agenda)
-            agenda_atual.append(agenda)
-
-        context = super(PorteiroAgendaListView,
-                        self).get_context_data(**kwargs)
-        context['liberarveiculos'] = agenda_atual
-        context['listar_agendamentos'] = 'active'
-        context['filterset'] = self.filterset
-        return context
