@@ -85,8 +85,9 @@
                               <tr>
                                 <th>Observações</th>
                                 <th>Veículo</th>
-                                <th>Data/Hora Saída</th>
+                                <th>Agendamento</th>
                                 <th>Descrição</th>
+                                <th>Hora Saída</th>
                               </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
@@ -96,14 +97,15 @@
                                 <td>{{ liberarveiculo.agendamento.veiculo }}</td>
                                 <td>{{ liberarveiculo.agendamento.data_saida }}</td>
                                 <td>{{ liberarveiculo.agendamento.descricao }}</td>
+                                <td>{{ liberarveiculo.data_hora_saida|date:"H:i" }}</td>
                                 <td>
                                   {% if liberarveiculo.porteiro_saida == None %}
                                     <a href="{% url 'liberarveiculo:liberarveiculo_porteiro_saida' pk=liberarveiculo.id %}">
-                                      <button type="button" class="btn rounded-pill btn-outline-success">Liberar</button>
+                                      <button type="button" class="btn rounded-pill btn-outline-success">Confirmar</button>
                                     </a>
                                   {% else %}
                                     <a href="{% url 'liberarveiculo:liberarveiculo_porteiro_chegada' pk=liberarveiculo.id %}">
-                                      <button type="button" class="btn rounded-pill btn-outline-success">Liberar</button>
+                                      <button type="button" class="btn rounded-pill btn-outline-danger">Confirmar</button>
                                     </a>
                                   {% endif %}
                                 </td>
