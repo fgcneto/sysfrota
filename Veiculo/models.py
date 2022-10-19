@@ -25,7 +25,7 @@ class Veiculo(models.Model):
         verbose_name='Modificado em:', auto_now_add=True)
 
     def __str__(self):
-        return self.tipo + " - " + self.placa
+        return self.placa
 
     class Meta:
         ordering = ['marca', 'tipo']

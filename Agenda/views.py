@@ -10,8 +10,6 @@ from django.shortcuts import redirect
 from Agenda.models import Agenda
 from Agenda.filters import AgendaFilter
 from Agenda import forms
-from LiberarVeiculo.filters import LiberarVeiculoFilter
-from LiberarVeiculo.models import LiberarVeiculo
 
 import sweetify
 from sweetify.views import SweetifySuccessMixin
@@ -19,6 +17,7 @@ from sweetify.views import SweetifySuccessMixin
 
 class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
     model = Agenda
+    form_class = forms.AgendamentoForm
     fields = ['descricao', 'data_saida',
               'data_retorno', 'veiculo', 'motorista']
     success_message = 'Cadastrado com Sucesso!'
@@ -37,14 +36,12 @@ class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequired
         hora_atual = now() - timedelta(hours=3)
         self.object = form.save(commit=False)
         self.object.usuario_cadastro = self.request.user
-        response = super(SweetifySuccessMixin, self).form_valid(form)
-        success_message = self.get_success_message(form.cleaned_data)
 
         def verifica_conflito_agendamento_datas(self):
             agendas = Agenda.objects.all()
             for agenda in agendas:
-                # se o veículo for igual
-                if self.object.veiculo == agenda.veiculo:
+                # se o veículo for igual e se objeto da request for diferente do banco
+                if self.object.veiculo == agenda.veiculo and self.object != agenda:
                     if (self.object.data_saida >= agenda.data_saida
                         and self.object.data_saida <= agenda.data_retorno) \
                         or (self.object.data_retorno >= agenda.data_saida
@@ -54,8 +51,11 @@ class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequired
             return False
 
         if not verifica_conflito_agendamento_datas(self):
-            # salvar o agendamento se data_saida for maior que data_retorno
-            if self.object.data_saida < self.object.data_retorno and self.object.data_saida >= hora_atual:
+            # SÓ SALVA o agendamento se data_saida for maior que data retorno
+            # E se data de saida for maior ou igual a data atual
+            # E se data de retorno for maior ou igual hora_atual
+            if self.object.data_saida < self.object.data_retorno \
+                    and self.object.data_saida >= hora_atual:
                 self.object.save()
                 response = super(SweetifySuccessMixin, self).form_valid(form)
                 success_message = self.get_success_message(form.cleaned_data)
@@ -64,16 +64,20 @@ class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequired
                                      **self.get_sweetify_options())
                 return response
         else:
-            sweetify.error(self.request, 'Erro ao Cadastrar',
+            sweetify.error(self.request, 'Erro ao editar',
                            text='Já existe outro agendamento dentro deste período', timer=3000)
-            return redirect("agenda:listar_agendamentos")
+            return redirect("agenda:cadastrar_agendamento")
 
-        if self.object.data_saida > self.object.data_retorno \
-                or self.object.data_saida == self.object.data_retorno \
-                or self.object.data_saida < hora_atual:
-            sweetify.error(self.request, 'Erro ao cadastrar ',
+        # não permite salvar o agendamento
+        if self.object.data_saida >= self.object.data_retorno \
+            or self.object.data_saida < hora_atual \
+                or self.object.data_retorno < hora_atual:
+            sweetify.error(self.request, 'Erro ao editar ',
                            text='Data de saída menor que hoje, igual ou superior a data de retorno', timer=5000)
             return redirect("agenda:cadastrar_agendamento")
+
+    def get_form_class(self):
+        return self.form_class
 
     def get_error_message(self, errors):
         return self.error_message % errors
@@ -100,7 +104,7 @@ class AgendaListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
         for event in events:
             event_list.append(
                 {
-                    "title": event.descricao,
+                    "title": event.veiculo,
                     "start": event.data_saida.strftime("%Y-%m-%dT%H:%M:%S"),
                     "end": event.data_retorno.strftime("%Y-%m-%dT%H:%M:%S"),
 
@@ -116,7 +120,7 @@ class AgendaListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
 
 class AgendaEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
     model = Agenda
-    form_class = forms.EditAgendamentoForm
+    form_class = forms.AgendamentoForm
     template_name = 'Agenda/cadastrar_agendamento.html'
     success_message = 'Alterado com Sucesso!'
     sweetify_options = {'text': 'Informações do Agendamento alteradas com sucesso.',
@@ -166,6 +170,9 @@ class AgendaEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixi
             sweetify.error(self.request, 'Erro ao editar ',
                            text='Data de saída menor que hoje, igual ou superior a data de retorno', timer=5000)
             return redirect("agenda:listar_agendamentos")
+
+    def get_form_class(self):
+        return self.form_class
 
     def get_error_message(self, errors):
         return self.error_message % errors

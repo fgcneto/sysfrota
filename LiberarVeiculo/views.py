@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from LiberarVeiculo.models import LiberarVeiculo
 from LiberarVeiculo.filters import LiberarVeiculoFilter
 from LiberarVeiculo import forms
@@ -66,49 +66,24 @@ class LiberarVeiculoEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequ
 
 
 @login_required
-def liberar_veiculo_delete(request, pk):
-    if id:
-        LiberarVeiculo.objects.filter(id=pk).delete()
-        sweetify.success(request, 'Cadastro Excluído ',
-                         text='Informações da Liberação do Veículo excluídas com \
-                                     sucesso.', timer=2500)
-    return redirect("liberarveiculo:listar_liberar_veiculos")
+def liberar_veiculo_porteiro_edit(request, pk):
 
+    liberar_veiculo = LiberarVeiculo.objects.get(id=pk)
+    liberar_veiculo_form = forms.LiberarVeiculoPorteiroForm(
+        request.POST or None, instance=liberar_veiculo)
 
-class LiberarVeiculoPorteiroSaidaEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
-    model = LiberarVeiculo
-    form_class = forms.EditLiberarVeiculoForm
-    template_name = 'LiberarVeiculo/cadastrar_liberar_veiculo.html'
-    success_message = 'Alterado com Sucesso!'
-    sweetify_options = {'text': 'Informações da Liberação do Veículo alteradas com sucesso.',
-                        'timer': 2500
-                        }
+    if request.method == 'POST':
+        if liberar_veiculo_form.is_valid():
+            liberar_veiculo_form.save()
+            sweetify.success(request, 'Cadastro Salvo', text='Informações \
+                 da Liberação salvas com sucesso!', timer=3000)
+            return redirect('liberarveiculo:listar-liberar-veiculos-porteiro')
 
-    def get_success_url(self):
-        return reverse_lazy('liberarveiculo:listar_liberar_veiculos')
+    context = {
+        'liberar_veiculo_form': liberar_veiculo_form
+    }
 
-
-@login_required
-def liberar_veiculo_delete(request, pk):
-    if id:
-        LiberarVeiculo.objects.filter(id=pk).delete()
-        sweetify.success(request, 'Cadastro Excluído ',
-                         text='Informações da Liberação do Veículo excluídas com \
-                                     sucesso.', timer=2500)
-    return redirect("liberarveiculo:listar_liberar_veiculos")
-
-
-class LiberarVeiculoPorteiroChegadaEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
-    model = LiberarVeiculo
-    form_class = forms.EditLiberarVeiculoForm
-    template_name = 'LiberarVeiculo/cadastrar_liberar_veiculo.html'
-    success_message = 'Alterado com Sucesso!'
-    sweetify_options = {'text': 'Informações da Liberação do Veículo alteradas com sucesso.',
-                        'timer': 2500
-                        }
-
-    def get_success_url(self):
-        return reverse_lazy('liberarveiculo:listar_liberar_veiculos')
+    return render(request, 'LiberarVeiculo/cadastrar_liberar_veiculo_porteiro.html', context=context)
 
 
 @login_required
@@ -154,3 +129,16 @@ class LiberarVeiculoPorteiroListView(SweetifySuccessMixin, ListView, LoginRequir
         context['listar_agendamentos'] = 'active'
         context['filterset'] = self.filterset
         return context
+
+
+# class LiberarVeiculoPorteiroEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
+#     model = LiberarVeiculo
+#     form_class = forms.LiberarVeiculoPorteiroForm
+#     template_name = 'LiberarVeiculo/cadastrar_liberar_veiculo_porteiro.html'
+#     success_message = 'Alterado com Sucesso!'
+#     sweetify_options = {'text': 'Informações da Liberação do Veículo alteradas com sucesso.',
+#                         'timer': 2500
+#                         }
+
+#     def get_success_url(self):
+#         return reverse_lazy('liberarveiculo:listar_liberar_veiculos_porteiro')

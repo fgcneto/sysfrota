@@ -95,16 +95,20 @@
                               <tr>
                                 <td>{{ liberarveiculo.observacoes }}</td>
                                 <td>{{ liberarveiculo.agendamento.veiculo }}</td>
-                                <td>{{ liberarveiculo.agendamento.data_saida }}</td>
-                                <td>{{ liberarveiculo.agendamento.descricao }}</td>
+                                <td>{{ liberarveiculo.agendamento.data_saida|date:"d-m-Y H:i" }}</td>
+                                <td>{{ liberarveiculo.agendamento.descricao|date:"d-m-Y H:i" }}</td>
                                 <td>{{ liberarveiculo.data_hora_saida|date:"H:i" }}</td>
                                 <td>
                                   {% if liberarveiculo.porteiro_saida == None %}
-                                    <a href="{% url 'liberarveiculo:liberarveiculo_porteiro_saida' pk=liberarveiculo.id %}">
-                                      <button type="button" class="btn rounded-pill btn-outline-success">Confirmar</button>
+                                    <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
+                                      <button 
+                                        type="button" 
+                                        class="btn rounded-pill btn-outline-success">
+                                          Confirmar
+                                      </button>
                                     </a>
                                   {% else %}
-                                    <a href="{% url 'liberarveiculo:liberarveiculo_porteiro_chegada' pk=liberarveiculo.id %}">
+                                    <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
                                       <button type="button" class="btn rounded-pill btn-outline-danger">Confirmar</button>
                                     </a>
                                   {% endif %}
