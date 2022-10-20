@@ -152,4 +152,4 @@ AUTH_USER_MODEL = 'Usuario.Usuario'
 # Sweetify - SweetAlert for Django
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert'
 
-LOGIN_URL = 'http://0.0.0.0:8000/admin'
+LOGIN_URL = 'http://0.0.0.0:8000/accounts/login'
