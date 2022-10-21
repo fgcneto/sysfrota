@@ -127,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Recife'
 
 USE_I18N = True
 
@@ -152,4 +152,6 @@ AUTH_USER_MODEL = 'Usuario.Usuario'
 # Sweetify - SweetAlert for Django
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert'
 
-LOGIN_URL = 'http://0.0.0.0:8000/accounts/login'
+LOGIN_URL = '/accounts/login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'

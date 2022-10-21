@@ -33,7 +33,8 @@ class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequired
         return context
 
     def form_valid(self, form):
-        hora_atual = now() - timedelta(hours=3)
+        # hora_atual = now() - timedelta(hours=3)
+        hora_atual = now()
         self.object = form.save(commit=False)
         self.object.usuario_cadastro = self.request.user
 
@@ -130,7 +131,8 @@ class AgendaEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixi
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.usuario_cadastro = self.request.user
-        hora_atual = now() - timedelta(hours=3)
+        # hora_atual = now() - timedelta(hours=3)
+        hora_atual = now()
 
         def verifica_conflito_agendamento_datas(self):
             agendas = Agenda.objects.all()
