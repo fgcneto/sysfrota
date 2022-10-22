@@ -103,13 +103,13 @@
                                     <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
                                       <button 
                                         type="button" 
-                                        class="btn rounded-pill btn-outline-success">
-                                          Confirmar
+                                        class="btn rounded-pill btn-outline-success w-100">
+                                          Saída
                                       </button>
                                     </a>
                                   {% else %}
                                     <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
-                                      <button type="button" class="btn rounded-pill btn-outline-danger">Confirmar</button>
+                                      <button type="button" class="btn rounded-pill btn-outline-danger w-100">Chegada</button>
                                     </a>
                                   {% endif %}
                                 </td>

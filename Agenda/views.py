@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.utils.timezone import now
 from datetime import date, timedelta
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.views.generic import ListView
@@ -87,7 +87,7 @@ class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequired
         return self.sweetify_options
 
 
-class AgendaListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
+class AgendaListView(LoginRequiredMixin, SweetifySuccessMixin, ListView):
     model = Agenda
     paginate_by = 6
     template_name = 'Agenda/listar_agendamentos.html'
@@ -119,7 +119,7 @@ class AgendaListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
         return context
 
 
-class AgendaEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
+class AgendaEditView(SweetifySuccessMixin, generic.UpdateView):
     model = Agenda
     form_class = forms.AgendamentoForm
     template_name = 'Agenda/cadastrar_agendamento.html'

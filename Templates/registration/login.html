@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 {% load static %}
-{% load static %}
 <!-- =========================================================
 * Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
 ==============================================================
@@ -153,25 +152,24 @@
               <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
                 <div class="mb-3">
-                  <tr for="email" class="form-label">{{ form.username.label_tag }}</tr>
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label" for="username">{{ form.username.label_tag }}</label>
+                  </div>
+                  <div class="input-group-merge form-control">
                     {{ form.username }}
-                  
-   
+                  </div>
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">{{ form.password.label_tag }}</label>
-                    <a href="{% url 'password_reset' %}">
-                      <small>Esqueceu seu Password?</small>
-                    </a>
                   </div>
-                  <div class="input-group input-group-merge">
-                    {{ form.password }}
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  <div class="input-group-merge form-control">
+                    {{ form.password }} 
+                    
                   </div>
                 </div>
                 <div class="mb-3">
-                  <input type="submit" value="login" />
+                  <button class="btn btn-primary d-grid w-100" type="submit" value="login">Sign in</button>
                   <input type="hidden" name="next" value="{{ next }}" />
                 </div>
               </form>
@@ -184,20 +182,20 @@
 
     <!-- / Content -->
 
-    <!-- Core JS -->
+    <!-- Core JS --> 
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{% static 'assets/vendor/libs/jquery/jquery.js' %}"></script>
+    <script src="{% static 'assets/vendor/libs/popper/popper.js' %}"></script>
+    <script src="{% static 'assets/vendor/js/bootstrap.js' %}"></script>
+    <script src="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="{% static 'assets/vendor/js/menu.js' %}"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="../assets/js/main.js"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
 
     <!-- Page JS -->
 
