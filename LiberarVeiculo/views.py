@@ -15,8 +15,9 @@ from sweetify.views import SweetifySuccessMixin
 
 class CadastrarLiberarVeiculo(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
     model = LiberarVeiculo
-    fields = ['observacoes', 'agendamento', 'responsavel_liberacao', 'porteiro_saida',
-              'porteiro_chegada', 'confirmacao_saida', 'confirmacao_chegada', 'km_saida', 'km_chegada', 'data_hora_saida', 'data_hora_chegada']
+    form_class = forms.LiberarVeiculoForm
+    fields = ['observacoes', 'agendamento'
+              ]
     success_message = 'Cadastrado!'
     sweetify_options = {'text': 'Informações da Liberação do Veículo cadastradas com sucesso.',
                         'timer': 2500
@@ -24,11 +25,36 @@ class CadastrarLiberarVeiculo(SweetifySuccessMixin, generic.CreateView, LoginReq
     template_name = 'LiberarVeiculo/cadastrar_liberar_veiculo.html'
     success_url = reverse_lazy('liberarveiculo:listar_liberar_veiculos')
 
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.responsavel_liberacao = self.request.user
+        self.object.save()
+        response = super(SweetifySuccessMixin, self).form_valid(form)
+        success_message = self.get_success_message(form.cleaned_data)
+
+        if success_message:
+            sweetify.success(self.request, success_message,
+                             **self.get_sweetify_options())
+            return response
+        else:
+            sweetify.error(self.request, 'Erro ao editar',
+                           text='Erro ao Editar a Liberação deste Veículo', timer=3000)
+            return redirect("liberarveiculo:listar_liberar_veiculos")
+
     def get_context_data(self, **kwargs):
         context = super(CadastrarLiberarVeiculo,
                         self).get_context_data(**kwargs)
         context['cadastrar_liberar_veiculo'] = 'active'
         return context
+
+    def get_form_class(self):
+        return self.form_class
+
+    def get_error_message(self, errors):
+        return self.error_message % errors
+
+    def get_sweetify_options(self):
+        return self.sweetify_options
 
 
 class LiberarVeiculoListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
@@ -54,12 +80,37 @@ class LiberarVeiculoListView(SweetifySuccessMixin, ListView, LoginRequiredMixin)
 
 class LiberarVeiculoEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
     model = LiberarVeiculo
-    form_class = forms.EditLiberarVeiculoForm
+    form_class = forms.LiberarVeiculoForm
     template_name = 'LiberarVeiculo/cadastrar_liberar_veiculo.html'
     success_message = 'Alterado com Sucesso!'
     sweetify_options = {'text': 'Informações da Liberação do Veículo alteradas com sucesso.',
                         'timer': 2500
                         }
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.responsavel_liberacao = self.request.user
+        self.object.save()
+        response = super(SweetifySuccessMixin, self).form_valid(form)
+        success_message = self.get_success_message(form.cleaned_data)
+
+        if success_message:
+            sweetify.success(self.request, success_message,
+                             **self.get_sweetify_options())
+            return response
+        else:
+            sweetify.error(self.request, 'Erro ao editar',
+                           text='Erro ao Editar a Liberação deste Veículo', timer=3000)
+            return redirect("liberarveiculo:listar_liberar_veiculos")
+
+    def get_form_class(self):
+        return self.form_class
+
+    def get_error_message(self, errors):
+        return self.error_message % errors
+
+    def get_sweetify_options(self):
+        return self.sweetify_options
 
     def get_success_url(self):
         return reverse_lazy('liberarveiculo:listar_liberar_veiculos')
@@ -129,16 +180,3 @@ class LiberarVeiculoPorteiroListView(SweetifySuccessMixin, ListView, LoginRequir
         context['listar_agendamentos'] = 'active'
         context['filterset'] = self.filterset
         return context
-
-
-# class LiberarVeiculoPorteiroEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
-#     model = LiberarVeiculo
-#     form_class = forms.LiberarVeiculoPorteiroForm
-#     template_name = 'LiberarVeiculo/cadastrar_liberar_veiculo_porteiro.html'
-#     success_message = 'Alterado com Sucesso!'
-#     sweetify_options = {'text': 'Informações da Liberação do Veículo alteradas com sucesso.',
-#                         'timer': 2500
-#                         }
-
-#     def get_success_url(self):
-#         return reverse_lazy('liberarveiculo:listar_liberar_veiculos_porteiro')

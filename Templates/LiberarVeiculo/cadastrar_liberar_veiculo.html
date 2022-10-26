@@ -23,11 +23,41 @@ Cadastrar
           <small class="text-muted float-end">Informações cadastrais sobre liberação do veículo</small>
         </div>
         <div class="card-body">
-            <form method="POST">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-            </form>
+          <form method="POST">
+            {% csrf_token %}
+            {{ liberarveiculo_form.as_p }}
+            <div class="row">
+              <div class="col-sm-6">
+                <label for="observacoes" class="form-label">{{ form.observacoes.label }}</label>    
+                {{ form.observacoes }}
+                  {% if form.observacoes.errors %}
+                    <label class="error">
+                      {% for error in form.observacoes.errors %}
+                        {{ error }}
+                      {% endfor %}
+                    </label>
+                  {% endif %}
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="agendamento" class="form-label">{{ form.agendamento.label }}
+                  <strong style="color:red;"> *</strong>
+                </label>
+                {{ form.agendamento }}
+                {% if form.agendamento.errors %}
+                  <label class="error">
+                    {% for error in form.agendamento.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>
+              <div class="mt-2">
+                <button type="submit" class="btn btn-primary me-2">Salvar</button>
+                <a href="{% url 'liberarveiculo:listar_liberar_veiculos' %}">
+                  <button type="button" class="btn btn-outline-danger">Cancelar</button>
+                </a>
+              </div>
+            </div>
           </form>
         </div>
       </div>

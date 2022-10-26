@@ -30,10 +30,10 @@ class LiberarVeiculo(models.Model):
         related_name="porteiro_chegada_liberacao_veiculo",
         verbose_name="Porteiro da chegada")
     confirmacao_saida = models.BooleanField(
-        null=True,
+        null=True, blank=True,
         verbose_name="Assinatura do Porteiro na Saída")
     confirmacao_chegada = models.BooleanField(
-        null=True,
+        null=True, blank=True,
         verbose_name="Assinatura do Porteiro na Chegada")
     km_saida = models.PositiveIntegerField(
         null=True,
@@ -53,7 +53,7 @@ class LiberarVeiculo(models.Model):
         null=True, blank=True, verbose_name="Data e Hora da Chegada")
 
     def __str__(self):
-        return str(self.agendamento) + " - " + str(self.responsavel_liberacao) + " - " + str(self.agendamento.motorista) + " - " + str(self.agendamento.veiculo) + " - " + str(self.agendamento.hora_saida)
+        return str(self.agendamento) + " - " + str(self.responsavel_liberacao) + " - " + str(self.agendamento.motorista) + " - " + str(self.agendamento.veiculo)
 
     class Meta:
         ordering = ['-agendamento']

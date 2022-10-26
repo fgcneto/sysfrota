@@ -4,12 +4,32 @@ from django.utils.translation import gettext as _
 from .models import LiberarVeiculo
 
 
-class EditLiberarVeiculoForm(ModelForm):
+class LiberarVeiculoForm(ModelForm):
 
     class Meta:
+
         model = LiberarVeiculo
-        fields = ('observacoes', 'agendamento', 'responsavel_liberacao', 'porteiro_saida',
-                  'porteiro_chegada', 'confirmacao_saida', 'confirmacao_chegada', 'km_saida', 'km_chegada', 'data_hora_saida', 'data_hora_chegada')
+
+        fields = ('observacoes', 'agendamento')
+        labels = {
+            'observacoes': _('Observações'),
+            'agendamento': _('Agendamento'),
+        }
+
+        widgets = {
+            'observacoes': forms.Textarea(
+                attrs={'id': 'observacoes', 'class': 'form-control'}),
+            'agendamento': forms.Select(
+                attrs={'id': 'agendamento',
+                       'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(LiberarVeiculoForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.error_messages = \
+                {'required': 'O(A) {fieldname} é obrigatório.'.
+                    format(fieldname=field.label)}
 
 
 class LiberarVeiculoPorteiroForm(ModelForm):
