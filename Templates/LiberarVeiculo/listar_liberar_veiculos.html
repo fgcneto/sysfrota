@@ -37,7 +37,9 @@ Listar
                   <th>Observações</th>
                   <th>Agendamento</th>
                   <th>Resp.Liberação</th>
+                  <th>Porteiro Saída</th>
                   <th>KM Saída</th>
+                  <th>Porteiro Chagada</th>
                   <th>KM Chegada</th>
                 </tr>
               </thead>
@@ -45,9 +47,11 @@ Listar
                   {% for liberarveiculo in liberarveiculos %}
                   <tr>
                       <td>{{ liberarveiculo.observacoes }}</td>
-                      <td>{{ liberarveiculo.agendamento }}</td>
+                      <td>{{ liberarveiculo.agendamento.data_saida|date:"d-m-Y H:i" }}</td>
                       <td>{{ liberarveiculo.responsavel_liberacao }}</td>
+                      <td>{{ liberarveiculo.porteiro_saida }}</td>
                       <td>{{ liberarveiculo.km_saida }}</td>
+                      <td>{{ liberarveiculo.porteiro_chegada }}</td>
                       <td>{{ liberarveiculo.km_chegada }}</td>
                       <td>
                         <a href="{% url 'liberarveiculo:editar_liberar_veiculo' pk=liberarveiculo.id %}">

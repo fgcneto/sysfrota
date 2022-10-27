@@ -56,6 +56,6 @@ class LiberarVeiculo(models.Model):
         return str(self.agendamento) + " - " + str(self.responsavel_liberacao) + " - " + str(self.agendamento.motorista) + " - " + str(self.agendamento.veiculo)
 
     class Meta:
-        ordering = ['-agendamento']
+        ordering = ['agendamento']
         verbose_name = "Liberar Veículo"
         verbose_name_plural = "Liberar Veículos"

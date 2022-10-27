@@ -137,13 +137,18 @@
               <!-- /Logo -->
               <h4 class="mb-2">Bem Vindos ao Sysfrota! 👋</h4>
               {% if form.errors %}
-              <p>Seu nome de usuário e senha não correspondem. Por favor, tente novamente.</p>
-              {% endif %}
-              
+              <p>
+                <strong style="color:red;">
+                  Seu nome de usuário e senha não correspondem. Por favor, tente novamente.
+                </strong>
+              </p>
+              {% endif %}             
               {% if next %}
                 {% if user.is_authenticated %}
-                  <p>Sua conta não tem acesso a esta página. Para prosseguir,
-                    por favor faça o login com uma conta que tenha acesso.</p>
+                    <strong style="color:red;">
+                      Sua conta não tem acesso a esta página. Para prosseguir,
+                    por favor faça o login com uma conta que tenha acesso.
+                    </strong>
                 {% else %}
                   <p>Por favor faça Login</p>
                 {% endif %}

@@ -116,25 +116,71 @@ class LiberarVeiculoEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequ
         return reverse_lazy('liberarveiculo:listar_liberar_veiculos')
 
 
-@login_required
-def liberar_veiculo_porteiro_edit(request, pk):
+class LiberarVeiculoPorteiroEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
+    model = LiberarVeiculo
+    form_class = forms.LiberarVeiculoPorteiroForm
+    template_name = 'LiberarVeiculo/cadastrar_liberar_veiculo_porteiro.html'
+    success_message = 'Alterado com Sucesso!'
+    sweetify_options = {'text': 'Informações da Liberação do Veículo alteradas com sucesso.',
+                        'timer': 2500
+                        }
 
-    liberar_veiculo = LiberarVeiculo.objects.get(id=pk)
-    liberar_veiculo_form = forms.LiberarVeiculoPorteiroForm(
-        request.POST or None, instance=liberar_veiculo)
+    def form_valid(self, form):
+        hora_atual = now()
+        self.object = form.save(commit=False)
 
-    if request.method == 'POST':
-        if liberar_veiculo_form.is_valid():
-            liberar_veiculo_form.save()
-            sweetify.success(request, 'Cadastro Salvo', text='Informações \
-                 da Liberação salvas com sucesso!', timer=3000)
-            return redirect('liberarveiculo:listar-liberar-veiculos-porteiro')
+        if self.object.porteiro_saida == None:
+            self.object.porteiro_saida = self.request.user
+            self.object.data_hora_saida = hora_atual
+        elif self.object.porteiro_chegada == None:
+            self.object.porteiro_chegada = self.request.user
+            self.object.data_hora_chegada = hora_atual
 
-    context = {
-        'liberar_veiculo_form': liberar_veiculo_form
-    }
+        self.object.save()
+        response = super(SweetifySuccessMixin, self).form_valid(form)
+        success_message = self.get_success_message(form.cleaned_data)
 
-    return render(request, 'LiberarVeiculo/cadastrar_liberar_veiculo_porteiro.html', context=context)
+        if success_message:
+            sweetify.success(self.request, success_message,
+                             **self.get_sweetify_options())
+            return response
+        else:
+            sweetify.error(self.request, 'Erro ao editar',
+                           text='Erro ao Editar a Liberação deste Veículo', timer=3000)
+            return redirect("liberarveiculo:listar-liberar-veiculos-porteiro")
+
+    def get_form_class(self):
+        return self.form_class
+
+    def get_error_message(self, errors):
+        return self.error_message % errors
+
+    def get_sweetify_options(self):
+        return self.sweetify_options
+
+    def get_success_url(self):
+        return reverse_lazy('liberarveiculo:listar-liberar-veiculos-porteiro')
+
+
+# @login_required
+# def liberar_veiculo_porteiro_edit(request, pk):
+
+#     liberar_veiculo = LiberarVeiculo.objects.get(id=pk)
+#     liberar_veiculo_form = forms.LiberarVeiculoPorteiroForm(
+#         request.POST or None, instance=liberar_veiculo)
+
+#     if request.method == 'POST':
+#         if liberar_veiculo_form.is_valid():
+#             liberar_veiculo_form.save()
+#             sweetify.success(request, 'Cadastro Salvo', text='Informações \
+#                  da Liberação salvas com sucesso!', timer=3000)
+#             return redirect('liberarveiculo:listar-liberar-veiculos-porteiro')
+
+#     context = {
+#         'liberar_veiculo_form': liberar_veiculo_form
+#     }
+
+#     return render(request, 'LiberarVeiculo/cadastrar_liberar_veiculo_porteiro.html', context=context)
 
 
 @login_required

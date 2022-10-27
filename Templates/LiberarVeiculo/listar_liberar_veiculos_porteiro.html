@@ -88,6 +88,7 @@
                                 <th>Agendamento</th>
                                 <th>Descrição</th>
                                 <th>Hora Saída</th>
+                                <th>Hora Chagada</th>
                               </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
@@ -98,21 +99,26 @@
                                 <td>{{ liberarveiculo.agendamento.data_saida|date:"d-m-Y H:i" }}</td>
                                 <td>{{ liberarveiculo.agendamento.descricao|date:"d-m-Y H:i" }}</td>
                                 <td>{{ liberarveiculo.data_hora_saida|date:"H:i" }}</td>
+                                <td>{{ liberarveiculo.data_hora_chegada|date:"H:i" }}</td>
+                                
                                 <td>
-                                  {% if liberarveiculo.porteiro_saida == None %}
-                                    <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
-                                      <button 
-                                        type="button" 
-                                        class="btn rounded-pill btn-outline-success w-100">
-                                          Saída
-                                      </button>
-                                    </a>
-                                  {% else %}
-                                    <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
-                                      <button type="button" class="btn rounded-pill btn-outline-danger w-100">Chegada</button>
-                                    </a>
+                                  {% if liberarveiculo.porteiro_saida == None or liberarveiculo.porteiro_chegada == None %}
+                                    {% if liberarveiculo.porteiro_saida == None %}
+                                      <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
+                                        <button 
+                                          type="button" 
+                                          class="btn rounded-pill btn-outline-success w-100">
+                                            Saída
+                                        </button>
+                                      </a>
+                                    {% else %}
+                                      <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
+                                        <button type="button" class="btn rounded-pill btn-outline-danger w-100">Chegada</button>
+                                      </a>
+                                    {% endif %}
                                   {% endif %}
                                 </td>
+                                
                               </tr>
                               {% endfor %}
                             </tbody>
