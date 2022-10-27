@@ -74,7 +74,7 @@
                           {% csrf_token %}
                           {{ liberarveiculo_form.as_p }}
                           <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-md-7">
                               <label for="observacoes" class="form-label">{{ form.observacoes.label }}</label>    
                               {{ form.observacoes }}
                                 {% if form.observacoes.errors %}
@@ -85,50 +85,31 @@
                                   </label>
                                 {% endif %}
                             </div>
-                            <div class="mb-3 col-md-6">
-                              <label for="kmsaida" class="form-label">{{ form.km_saida.label }}</label>
-                              {{ form.km_saida }}
-                              {% if form.km_saida.errors %}
-                                <label class="error">
-                                  {% for error in form.km_saida.errors %}
-                                    {{ error }}
-                                  {% endfor %}
-                                </label>
-                              {% endif %}
-                            </div>
-                            <div class="mb-3 col-md-6">
-                              <label class="form-label">{{ form.km_chegada.label }}</label>
-                              {{ form.km_chegada }}
-                              {% if form.km_chegada.errors %}
-                                <label class="error">
-                                  {% for error in form.km_chegada.errors %}
-                                    {{ error }}
-                                  {% endfor %}
-                                </label>
-                              {% endif %}
-                            </div>
-                            <div class="mb-3 col-md-6">
-                              <label class="form-label">{{ form.confirmacao_saida.label }}</label>
-                              {{ form.confirmacao_saida }}
-                              {% if form.confirmacao_saida.errors %}
-                                <label class="error">
-                                  {% for error in form.confirmacao_saida.errors %}
-                                    {{ error }}
-                                  {% endfor %}
-                                </label>
-                              {% endif %}
-                            </div>
-                            <div class="mb-3 col-md-6">
-                              <label class="form-label">{{ form.confirmacao_chegada.label }}</label>
-                              {{ form.confirmacao_chegada }}
-                              {% if form.confirmacao_chegada.errors %}
-                                <label class="error">
-                                  {% for error in form.confirmacao_chegada.errors %}
-                                    {{ error }}
-                                  {% endfor %}
-                                </label>
-                              {% endif %}
-                            </div>
+                            {% if liberarveiculo.porteiro_saida == None %}
+                              <div class="mb-3 col-md-6">
+                                <label for="kmsaida" class="form-label">{{ form.km_saida.label }}</label>
+                                {{ form.km_saida }}
+                                {% if form.km_saida.errors %}
+                                  <label class="error">
+                                    {% for error in form.km_saida.errors %}
+                                      {{ error }}
+                                    {% endfor %}
+                                  </label>
+                                {% endif %}
+                              </div>
+                            {% else %}
+                              <div class="mb-3 col-md-6">
+                                <label class="form-label">{{ form.km_chegada.label }}</label>
+                                {{ form.km_chegada }}
+                                {% if form.km_chegada.errors %}
+                                  <label class="error">
+                                    {% for error in form.km_chegada.errors %}
+                                      {{ error }}
+                                    {% endfor %}
+                                  </label>
+                                {% endif %}
+                              </div>
+                            {% endif %}
                             <div class="mt-2">
                               <button type="submit" class="btn btn-primary me-2">Confirmar</button>
                               <a href="{% url 'liberarveiculo:listar-liberar-veiculos-porteiro' %}">

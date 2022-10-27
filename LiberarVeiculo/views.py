@@ -126,13 +126,16 @@ class LiberarVeiculoPorteiroEditView(SweetifySuccessMixin, generic.UpdateView, L
                         }
 
     def form_valid(self, form):
+
         hora_atual = now()
         self.object = form.save(commit=False)
 
         if self.object.porteiro_saida == None:
+            self.object.confirmacao_saida = True
             self.object.porteiro_saida = self.request.user
             self.object.data_hora_saida = hora_atual
         elif self.object.porteiro_chegada == None:
+            self.object.confirmacao_chegada = True
             self.object.porteiro_chegada = self.request.user
             self.object.data_hora_chegada = hora_atual
 

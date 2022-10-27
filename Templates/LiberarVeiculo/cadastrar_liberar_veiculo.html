@@ -51,6 +51,30 @@ Cadastrar
                   </label>
                 {% endif %}
               </div>
+              <div class="mb-3 col-md-6">
+                <label for="porteiro_saida" class="form-label">{{ form.porteiro_saida.label }}
+                </label>
+                {{ form.porteiro_saida }}
+                {% if form.porteiro_saida.errors %}
+                  <label class="error">
+                    {% for error in form.porteiro_saida.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="porteiro_chegada" class="form-label">{{ form.porteiro_chegada.label }}
+                </label>
+                {{ form.porteiro_chegada }}
+                {% if form.porteiro_chegada.errors %}
+                  <label class="error">
+                    {% for error in form.porteiro_chegada.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>
               <div class="mt-2">
                 <button type="submit" class="btn btn-primary me-2">Salvar</button>
                 <a href="{% url 'liberarveiculo:listar_liberar_veiculos' %}">

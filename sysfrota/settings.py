@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import django_heroku  # remover ao colocar em produção
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -156,5 +155,3 @@ SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert'
 LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
-
-django_heroku.settings(locals)  # remover ao colocar em produção

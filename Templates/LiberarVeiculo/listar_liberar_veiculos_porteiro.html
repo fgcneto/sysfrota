@@ -105,20 +105,15 @@
                                   {% if liberarveiculo.porteiro_saida == None or liberarveiculo.porteiro_chegada == None %}
                                     {% if liberarveiculo.porteiro_saida == None %}
                                       <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
-                                        <button 
-                                          type="button" 
-                                          class="btn rounded-pill btn-outline-success w-100">
-                                            Saída
-                                        </button>
+                                        <button type="button" class="btn rounded-pill btn-outline-success w-100">Confirmar Saída</button>
                                       </a>
                                     {% else %}
                                       <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
-                                        <button type="button" class="btn rounded-pill btn-outline-danger w-100">Chegada</button>
+                                        <button type="button" class="btn rounded-pill btn-outline-danger w-100">Confirmar Chegada</button>
                                       </a>
                                     {% endif %}
                                   {% endif %}
-                                </td>
-                                
+                                </td>  
                               </tr>
                               {% endfor %}
                             </tbody>
