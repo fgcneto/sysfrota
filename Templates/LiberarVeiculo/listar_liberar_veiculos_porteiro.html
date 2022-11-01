@@ -71,45 +71,30 @@
                   <div class="card mb-4">
                       <div class="card-header d-flex justify-content-between align-items-center">
                           <h5 class="mb-0">Liberação Veículos</h5>
-              
-                          <small class="text-muted float-end">
-                            <form action="" method="get">
-                              <input class="form-control mr-sm-2" type="text" name="texto" id="id_texto" placeholder="Busca" value="{{ request.GET.texto }}">
-                            </form>
-                          </small>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive text-nowrap">
                           <table id="tabela_veiculos" class="table table-striped">
                             <thead>
                               <tr>
-                                <th>Observações</th>
                                 <th>Veículo</th>
-                                <th>Agendamento</th>
-                                <th>Descrição</th>
-                                <th>Hora Saída</th>
-                                <th>Hora Chagada</th>
+                                <th>Agenda</th>
                               </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
                               {% for liberarveiculo in liberarveiculos %}
                               <tr>
-                                <td>{{ liberarveiculo.observacoes }}</td>
                                 <td>{{ liberarveiculo.agendamento.veiculo }}</td>
-                                <td>{{ liberarveiculo.agendamento.data_saida|date:"d-m-Y H:i" }}</td>
-                                <td>{{ liberarveiculo.agendamento.descricao|date:"d-m-Y H:i" }}</td>
-                                <td>{{ liberarveiculo.data_hora_saida|date:"H:i" }}</td>
-                                <td>{{ liberarveiculo.data_hora_chegada|date:"H:i" }}</td>
-                                
+                                <td>{{ liberarveiculo.agendamento.data_saida|date:"d-m-Y H:i" }}</td>  
                                 <td>
                                   {% if liberarveiculo.porteiro_saida == None or liberarveiculo.porteiro_chegada == None %}
                                     {% if liberarveiculo.porteiro_saida == None %}
                                       <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
-                                        <button type="button" class="btn rounded-pill btn-outline-success w-100">Confirmar Saída</button>
+                                        <button type="button" class="btn rounded-pill btn-outline-success w-100">Saída</button>
                                       </a>
                                     {% else %}
                                       <a href="{% url 'liberarveiculo:editar_liberar_veiculo_porteiro' pk=liberarveiculo.id %}">
-                                        <button type="button" class="btn rounded-pill btn-outline-danger w-100">Confirmar Chegada</button>
+                                        <button type="button" class="btn rounded-pill btn-outline-danger w-100">Chegada</button>
                                       </a>
                                     {% endif %}
                                   {% endif %}
