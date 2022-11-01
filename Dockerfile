@@ -1,7 +1,9 @@
 FROM python:3.8
+#FROM python:3.10-alpine
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV DEBUG 0
 
 WORKDIR /code
 
@@ -17,3 +19,13 @@ RUN pip install --upgrade sweetify
 RUN pip install psycopg2
 
 COPY . .
+
+# collect static files
+RUN python manage.py collectstatic --noinput
+
+# add and run as non-root user
+RUN adduser -D admin
+USER admin
+
+# run gunicorn
+CMD gunicorn sysfrota.wsgi:application --bind 0.0.0.0:$PORT
