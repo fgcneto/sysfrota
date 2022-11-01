@@ -1,1 +1,1 @@
-web: gunicorn sysfrota.wsgi
+web: gunicorn sysfrota.wsgi.application

@@ -24,8 +24,8 @@ COPY . .
 RUN python manage.py collectstatic --noinput
 
 # add and run as non-root user
-RUN adduser -D admin
-USER admin
+# RUN adduser -D admin
+# USER admin
 
 # run gunicorn
-CMD gunicorn sysfrota.wsgi:application --bind 0.0.0.0:$PORT
+# CMD gunicorn sysfrota.wsgi:application --bind 0.0.0.0:$PORT
