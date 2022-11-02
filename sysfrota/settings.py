@@ -106,11 +106,11 @@ WSGI_APPLICATION = 'sysfrota.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "",
-        "USER": "",
-        "PASSWORD": "",
-        "HOST": "",
-        "PORT": "",
+        "NAME": "d15rcvihagblfu",
+        "USER": "awixazzuljecnc",
+        "PASSWORD": "365ae793f3e014a7f1001ab6b924f25d8a54b8f8ac6305909731af71723a858b",
+        "HOST": "ec2-52-23-131-232.compute-1.amazonaws.com",
+        "PORT": 5432,
     }
 }
 
