@@ -12,16 +12,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
-from decouple import config
-
-# config heroku
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
-}
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -114,6 +104,9 @@ WSGI_APPLICATION = 'sysfrota.wsgi.application'
 #         "PORT": 5432,
 #     }
 # }
+# Heroku DARABASE
+DATABASE_URL = 'postgres://awixazzuljecnc:365ae793f3e014a7f1001ab6b924f25d8a54b8f8ac6305909731af71723a858b@ec2-52-23-131-232.compute-1.amazonaws.com:5432/d15rcvihagblfu'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
