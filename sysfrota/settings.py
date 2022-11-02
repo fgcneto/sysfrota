@@ -105,11 +105,11 @@ WSGI_APPLICATION = 'sysfrota.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': [database from heroku postgres],
-        'USER': [user from heroku postgres],
-        'PASSWORD': [password from heroku postgres],
-        'HOST': [host from heroku postgres],
-        'PORT':  [Port from heroku postgres]
+        'NAME': 'database from heroku postgres',
+        'USER': 'user from heroku postgres',
+        'PASSWORD': 'password from heroku postgres',
+        'HOST': 'host from heroku postgres',
+        'PORT':  'Port from heroku postgres'
     }
 }
 
