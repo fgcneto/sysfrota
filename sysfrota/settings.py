@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,9 +56,11 @@ INSTALLED_APPS = [
     'bootstrap5',  # pip install django-bootstrap-v5
     'django_filters',  # pip install django-filter
     'sweetify',  # pip install --upgrade sweetify
+    'whitenoise.runserver_nostatic'
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -102,16 +107,6 @@ WSGI_APPLICATION = 'sysfrota.wsgi.application'
 #         "PORT": 5432,
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'database from heroku postgres',
-        'USER': 'user from heroku postgres',
-        'PASSWORD': 'password from heroku postgres',
-        'HOST': 'host from heroku postgres',
-        'PORT':  'Port from heroku postgres'
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -150,6 +145,7 @@ USE_TZ = True
 STATIC_URL = 'Static/'
 STATICFILES_DIRS = [STATIC_DIR]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
