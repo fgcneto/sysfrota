@@ -104,8 +104,6 @@ WSGI_APPLICATION = 'sysfrota.wsgi.application'
 #         "PORT": 5432,
 #     }
 # }
-# Heroku DARABASE
-DATABASE_URL = 'postgres://awixazzuljecnc:365ae793f3e014a7f1001ab6b924f25d8a54b8f8ac6305909731af71723a858b@ec2-52-23-131-232.compute-1.amazonaws.com:5432/d15rcvihagblfu'
 
 
 # Password validation
