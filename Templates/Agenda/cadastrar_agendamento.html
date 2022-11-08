@@ -27,16 +27,29 @@ Cadastrar
             {% csrf_token %}
             {{ agenda_form.as_p }}
             <div class="row">
-              <div class="col-sm-12">
-                <label for="descricao" class="form-label">{{ form.descricao.label }}</label>    
-                {{ form.descricao }}
-                  {% if form.descricao.errors %}
-                    <label class="error">
-                      {% for error in form.descricao.errors %}
-                        {{ error }}
-                      {% endfor %}
-                    </label>
-                  {% endif %}
+              <div class="mb-3 col-md-6">
+                <label for="veiculo" class="form-label">{{ form.veiculo.label }}
+                  <strong style="color:red;"> *</strong>
+                </label>
+                {{ form.veiculo }}
+                {% if form.veiculo.errors %}
+                  <label class="error">
+                    {% for error in form.veiculo.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>
+              <div class="mb-3 col-md-6">
+                <label for="motorista" class="form-label">{{ form.motorista.label }}</label>
+                {{ form.motorista }}
+                {% if form.motorista.errors %}
+                  <label class="error">
+                    {% for error in form.motorista.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
               </div>
               <div class="mb-3 col-md-6">
                 <label for="data_saida" class="form-label">{{ form.data_saida.label }}
@@ -64,29 +77,16 @@ Cadastrar
                   </label>
                 {% endif %}
               </div>
-              <div class="mb-3 col-md-6">
-                <label for="veiculo" class="form-label">{{ form.veiculo.label }}
-                  <strong style="color:red;"> *</strong>
-                </label>
-                {{ form.veiculo }}
-                {% if form.veiculo.errors %}
-                  <label class="error">
-                    {% for error in form.veiculo.errors %}
-                      {{ error }}
-                    {% endfor %}
-                  </label>
-                {% endif %}
-              </div>
-              <div class="mb-3 col-md-6">
-                <label for="motorista" class="form-label">{{ form.motorista.label }}</label>
-                {{ form.motorista }}
-                {% if form.motorista.errors %}
-                  <label class="error">
-                    {% for error in form.motorista.errors %}
-                      {{ error }}
-                    {% endfor %}
-                  </label>
-                {% endif %}
+              <div class="col-sm-12">
+                <label for="descricao" class="form-label">{{ form.descricao.label }}</label>    
+                {{ form.descricao }}
+                  {% if form.descricao.errors %}
+                    <label class="error">
+                      {% for error in form.descricao.errors %}
+                        {{ error }}
+                      {% endfor %}
+                    </label>
+                  {% endif %}
               </div>
               <div class="mt-2">
                 <button type="submit" class="btn btn-primary me-2">Salvar</button>

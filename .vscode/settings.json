@@ -19,6 +19,7 @@
     "cadastrada",
     "cadastradas",
     "Cadastrado",
+    "cadastrais",
     "Cadastrar",
     "cadastro",
     "chegada",
@@ -98,6 +99,7 @@
     "Porteiro",
     "Porteiros",
     "prazo",
+    "Primeiro",
     "realizados",
     "responsavel",
     "Responsável",
@@ -113,6 +115,7 @@
     "sysfrota",
     "texto",
     "Tipo",
+    "Último",
     "Usuario",
     "Usuário",
     "Usuários",
@@ -120,6 +123,7 @@
     "Veículo",
     "Veículos",
     "Verifica",
+    "Verificar",
     "wsgi"
   ]
 }

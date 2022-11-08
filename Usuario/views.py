@@ -28,35 +28,16 @@ def home_logout(request):
 
 
 def home_authenticated(request):
-    # user Administrativo
-    if request.user.user_type == 1:
-        return render(request, "Base/base.html")
     # user Motorista
-    elif request.user.user_type == 2:
+    if request.user.user_type == 2:
         return redirect("liberarveiculo:listar-liberar-veiculos-porteiro")
     # user porteiro
     elif request.user.user_type == 3:
         return redirect("liberarveiculo:listar-liberar-veiculos-porteiro")
+        # user Administrativo
+    else:
+        return render(request, "Base/base.html")
 
-
-# @login_required
-# def usuario_edit(request, pk):
-#     template_name = 'Usuario/cadastrar_usuario.html'
-#     usuario = Usuario.objects.get(id=pk)
-#     usuario_form = forms.UsuarioForm(request.POST or None, instance=usuario)
-
-#     if request.method == 'POST':
-#         if usuario_form.is_valid():
-#             usuario_form.save()
-#             sweetify.success(request, 'Cadastro Salvo', text='Informações \
-#                  do Usuário salvas com sucesso!', timer=3000)
-#             return redirect('usuario:listar_usuarios')
-
-#     context = {
-#         'usuario_form': usuario_form
-#     }
-
-#     return render(request, template_name, context)
 
 class UsuarioEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
     model = Usuario
@@ -74,25 +55,6 @@ class UsuarioEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMix
 
     def get_success_url(self):
         return reverse_lazy("usuario:listar_usuarios")
-
-
-# @login_required
-# def usuario_create(request):
-#     template_name = 'Usuario/cadastrar_usuario.html'
-#     usuario_form = forms.UsuarioForm(request.POST or None)
-
-#     if request.method == 'POST':
-#         if usuario_form.is_valid():
-#             usuario_form.save()
-#             sweetify.success(request, 'Cadastro Salvo', text='Informações \
-#                  do usuário salvas com sucesso!', timer=3000)
-#             return redirect('usuario:listar_usuarios')
-
-#     context = {
-#         'usuario_form': usuario_form
-#     }
-
-#     return render(request, template_name, context)
 
 
 @login_required
@@ -136,9 +98,10 @@ class UsuarioListView(ListView, LoginRequiredMixin):
 
 class UsuarioRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
     model = Usuario
-    fields = ['is_superuser', 'is_staff', 'user_type',
-              'first_name', 'last_name', 'username', 'password',
-              'email', 'cpf', 'matricula', 'habilitacao']
+    form_class = forms.CustomUserCreationForm
+    fields = ['user_type', 'first_name', 'last_name',
+              'username', 'password', 'email',
+              'cpf', 'matricula', 'habilitacao']
     success_message = 'Cadastrado!'
     sweetify_options = {'text': 'Informações do Usuário cadastradas com sucesso.',
                         'timer': 3000
@@ -150,3 +113,26 @@ class UsuarioRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequire
         context = super(UsuarioRegisterView, self).get_context_data(**kwargs)
         context['cadastrar_usuario'] = 'active'
         return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.save()
+        response = super(SweetifySuccessMixin, self).form_valid(form)
+        success_message = self.get_success_message(form.cleaned_data)
+        if success_message:
+            sweetify.success(self.request, success_message,
+                             **self.get_sweetify_options())
+            return response
+        else:
+            sweetify.error(self.request, 'Erro ao editar',
+                           text='Verificar informações cadastrais', timer=3000)
+            return redirect("usuario:cadastrar_usuario")
+
+    def get_form_class(self):
+        return self.form_class
+
+    def get_error_message(self, errors):
+        return self.error_message % errors
+
+    def get_sweetify_options(self):
+        return self.sweetify_options

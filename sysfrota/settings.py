@@ -28,8 +28,8 @@ MEDIA_URL = '/media/'
 SECRET_KEY = 'django-insecure-8c%k6)h67%6!9r$yx5y8v#trfpt)(a(p)-o)2bn=t7ypgg4_p-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = int(os.environ.get('DEBUG', default=0))
+DEBUG = True
+# DEBUG = int(os.environ.get('DEBUG', default=0))
 
 ALLOWED_HOSTS = ['*']
 
@@ -53,11 +53,9 @@ INSTALLED_APPS = [
     'bootstrap5',  # pip install django-bootstrap-v5
     'django_filters',  # pip install django-filter
     'sweetify',  # pip install --upgrade sweetify
-    'whitenoise.runserver_nostatic'
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -94,25 +92,26 @@ WSGI_APPLICATION = 'sysfrota.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "postgres",
-#         "USER": "postgres",
-#         "PASSWORD": "postgres",
-#         "HOST": "db",
-#         "PORT": 5432,
-#     }
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "d15rcvihagblfu",
-        "USER": "awixazzuljecnc",
-        "PASSWORD": "365ae793f3e014a7f1001ab6b924f25d8a54b8f8ac6305909731af71723a858b",
-        "HOST": "ec2-52-23-131-232.compute-1.amazonaws.com",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "db",
         "PORT": 5432,
     }
 }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "d15rcvihagblfu",
+#         "USER": "awixazzuljecnc",
+#         "PASSWORD": "365ae793f3e014a7f1001ab6b924f25d8a54b8f8ac6305909731af71723a858b",
+#         "HOST": "ec2-52-23-131-232.compute-1.amazonaws.com",
+#         "PORT": 5432,
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -151,7 +150,7 @@ USE_TZ = True
 STATIC_URL = 'Static/'
 STATICFILES_DIRS = [STATIC_DIR]
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
