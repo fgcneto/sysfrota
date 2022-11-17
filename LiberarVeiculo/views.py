@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from LiberarVeiculo.models import LiberarVeiculo
 from LiberarVeiculo.filters import LiberarVeiculoFilter
 from LiberarVeiculo import forms
@@ -13,7 +13,7 @@ import sweetify
 from sweetify.views import SweetifySuccessMixin
 
 
-class CadastrarLiberarVeiculo(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
+class CadastrarLiberarVeiculo(LoginRequiredMixin, generic.CreateView, SweetifySuccessMixin):
     model = LiberarVeiculo
     form_class = forms.LiberarVeiculoForm
     fields = ['observacoes', 'agendamento'
@@ -57,7 +57,7 @@ class CadastrarLiberarVeiculo(SweetifySuccessMixin, generic.CreateView, LoginReq
         return self.sweetify_options
 
 
-class LiberarVeiculoListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
+class LiberarVeiculoListView(LoginRequiredMixin, ListView, SweetifySuccessMixin):
     model = LiberarVeiculo
     paginate_by = 6
     template_name = 'LiberarVeiculo/listar_liberar_veiculos.html'
@@ -78,7 +78,7 @@ class LiberarVeiculoListView(SweetifySuccessMixin, ListView, LoginRequiredMixin)
         return context
 
 
-class LiberarVeiculoEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
+class LiberarVeiculoEditView(LoginRequiredMixin, generic.UpdateView, SweetifySuccessMixin):
     model = LiberarVeiculo
     form_class = forms.LiberarVeiculoForm
     template_name = 'LiberarVeiculo/cadastrar_liberar_veiculo.html'
@@ -116,7 +116,7 @@ class LiberarVeiculoEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequ
         return reverse_lazy('liberarveiculo:listar_liberar_veiculos')
 
 
-class LiberarVeiculoPorteiroEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
+class LiberarVeiculoPorteiroEditView(LoginRequiredMixin, generic.UpdateView, SweetifySuccessMixin):
     model = LiberarVeiculo
     form_class = forms.LiberarVeiculoPorteiroForm
     template_name = 'LiberarVeiculo/cadastrar_liberar_veiculo_porteiro.html'
@@ -126,7 +126,6 @@ class LiberarVeiculoPorteiroEditView(SweetifySuccessMixin, generic.UpdateView, L
                         }
 
     def form_valid(self, form):
-
         hora_atual = now()
         self.object = form.save(commit=False)
 
@@ -165,27 +164,6 @@ class LiberarVeiculoPorteiroEditView(SweetifySuccessMixin, generic.UpdateView, L
         return reverse_lazy('liberarveiculo:listar-liberar-veiculos-porteiro')
 
 
-# @login_required
-# def liberar_veiculo_porteiro_edit(request, pk):
-
-#     liberar_veiculo = LiberarVeiculo.objects.get(id=pk)
-#     liberar_veiculo_form = forms.LiberarVeiculoPorteiroForm(
-#         request.POST or None, instance=liberar_veiculo)
-
-#     if request.method == 'POST':
-#         if liberar_veiculo_form.is_valid():
-#             liberar_veiculo_form.save()
-#             sweetify.success(request, 'Cadastro Salvo', text='Informações \
-#                  da Liberação salvas com sucesso!', timer=3000)
-#             return redirect('liberarveiculo:listar-liberar-veiculos-porteiro')
-
-#     context = {
-#         'liberar_veiculo_form': liberar_veiculo_form
-#     }
-
-#     return render(request, 'LiberarVeiculo/cadastrar_liberar_veiculo_porteiro.html', context=context)
-
-
 @login_required
 def liberar_veiculo_delete(request, pk):
     if id:
@@ -196,7 +174,7 @@ def liberar_veiculo_delete(request, pk):
     return redirect("liberarveiculo:listar_liberar_veiculos")
 
 
-class LiberarVeiculoPorteiroListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
+class LiberarVeiculoPorteiroListView(LoginRequiredMixin, ListView, SweetifySuccessMixin):
     model = LiberarVeiculo
     paginate_by = 6
     template_name = 'LiberarVeiculo/listar_liberar_veiculos_porteiro.html'
@@ -209,18 +187,10 @@ class LiberarVeiculoPorteiroListView(SweetifySuccessMixin, ListView, LoginRequir
         return self.filterset.qs.distinct()
 
     def get_context_data(self, **kwargs):
-        dia_atual = now().date()
         liberacoes_veiculos = LiberarVeiculo.objects.all()
         agenda_atual = []
 
         for liberacao in liberacoes_veiculos:
-            # print("data agendamento: ", agenda.agendamento.data_saida.date())
-            # print("dia atual", dia_atual)
-            # print(type(agenda.agendamento.data_saida.date()))
-            # print(type(dia_atual))
-            # print(agenda.agendamento.data_saida == dia_atual)
-            # if agenda.agendamento.data_saida == dia_atual:
-            #     agenda_atual.append(agenda)
             agenda_atual.append(liberacao)
 
         context = super(LiberarVeiculoPorteiroListView,

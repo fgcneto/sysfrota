@@ -46,16 +46,20 @@ class LiberarVeiculoPorteiroForm(ModelForm):
 
     class Meta:
         model = LiberarVeiculo
-        fields = ('id', 'observacoes', 'km_saida', 'km_chegada'
+        fields = ('id', 'agendamento', 'observacoes', 'km_saida', 'km_chegada'
                   )
 
         labels = {
+            'agendamento': _('Veículo'),
             'observacoes': _('Observações'),
             'km_saida': _('Km Saída'),
             'km_chegada': _('Km Chegada'),
         }
 
         widgets = {
+            'agendamento': forms.TextInput(
+                attrs={'id': 'agendamento', 'autofocus': True,
+                       'class': 'form-control'}),
             'observacoes': forms.Textarea(
                 attrs={'id': 'observacoes', 'class': 'form-control'}),
             'km_saida': forms.TextInput(

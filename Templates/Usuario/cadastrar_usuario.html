@@ -25,7 +25,7 @@ Cadastrar
         <div class="card-body">
           <form method="POST">
             {% csrf_token %}
-            {{ usuario_form.as_p }}
+            
             <div class="row">
               <div class="col-sm-4">
                 <label for="user_type" class="form-label">
@@ -83,20 +83,38 @@ Cadastrar
                   </label>
                 {% endif %}
               </div>
-              <div type="password" class="mb-3 col-md-4">
-                <label for="password" class="form-label">
-                  {{ form.password.label }}
-                  <strong style="color:red;"> *</strong>
+              <div class="col-sm-4">
+                <label class="form-label">
+                  {{form.password1.label}}
+                    <strong style="color:red;"> *</strong>
                 </label>
-                {{ form.password }}
-                {% if form.password.errors %}
-                  <label class="error">
-                    {% for error in form.password.errors %}
-                      {{ error }}
-                    {% endfor %}
-                  </label>
-                {% endif %}
+                <div class="input-group input-group-merge">
+                  {{ form.password1}}
+                  {% if form.password1.errors %}
+                    <label class="error">
+                      {% for error in form.password1.errors %}
+                        {{error}}
+                      {% endfor %}
+                    </label>
+                  {% endif %}
+                </div>
               </div>
+              <div class="col-sm-4">
+                <label class="form-label">
+                  {{form.password2.label}}
+                    <strong style="color:red;"> *</strong>
+                </label>
+                <div class="input-group input-group-merge">
+                  {{ form.password2}}
+                  {% if form.password2.errors %}
+                    <label class="error">
+                      {% for error in form.password2.errors %}
+                        {{error}}
+                      {% endfor %}
+                    </label>
+                  {% endif %}
+                </div>
+              </div>             
               <div type="email" class="mb-3 col-md-4">
                 <label for="email" class="form-label">
                   {{ form.email.label }}
@@ -157,146 +175,6 @@ Cadastrar
               </div>
             </div>
           </form>
-          {% comment %} <form class="forms-style" method="POST" enctype="multipart/form-data" novalidate="true"> 
-            {% csrf_token %}
-            <div class="tab-content" id="nav-tabContent">           
-              <div class="tab-pane fade show active" id="nav-pessoais" role="tabpanel"  aria-labelledby="nav-pessoais-tab">
-                    <div class="card shadow mb-5 bgc" style="padding: 15px;">
-                      <div class="row">
-                        <div class="form-group col-md-2">  
-                          <label>
-                            {{usuario_form.user_type.label}}
-                            <strong style="color:red;"> *</strong>
-                          <label>
-                            {{ usuario_form.user_type}}
-                            {% if usuario_form.user_type.errors %}
-                              <label class="error">
-                                {% for error in usuario_form.user_type.errors %}
-                                  {{error}}
-                                {% endfor %}
-                              </label>
-                            {% endif %}
-                        </div>
-                        <div class="form-group col-md-3">  
-                          <label>
-                            {{usuario_form.username.label}}
-                            <strong style="color:red;"> *</strong>
-                          </label>
-                          {{ usuario_form.username}}
-                          {% if usuario_form.username.label.errors %}
-                            <label class="error">
-                              {% for error in usuario_form.username.label.errors %}
-                                {{error}}
-                              {% endfor %}
-                            </label>
-                          {% endif %}
-                        </div>
-                        <div class="form-group col-md-3">  
-                          <label>
-                            {{usuario_form.first_name.label}}
-                            <strong style="color:red;"> *</strong>
-                          <label>
-                          {{ usuario_form.first_name}}
-                          {% if usuario_form.first_name.errors %}
-                            <label class="error">
-                              {% for error in usuario_form.first_name.errors %}
-                                {{error}}
-                              {% endfor %}
-                            </label>
-                          {% endif %}
-                        </div> 
-                        <div class="form-group col-md-3">  
-                          <label>
-                            {{usuario_form.last_name.label}}
-                            <strong style="color:red;"> *</strong>
-                          <label>
-                              {{ usuario_form.last_name}}
-                              {% if usuario_form.last_name.errors %}
-                                <label class="error">
-                                  {% for error in usuario_form.last_name.errors %}
-                                    {{error}}
-                                  {% endfor %}
-                                </label>
-                            {% endif %}
-                        </div>
-                        <div class="form-group col-md-2">  
-                            <label >
-                              {{usuario_form.password.label}}
-                              <strong style="color:red;"> *</strong>
-                            </label>
-                            {{ usuario_form.password}}
-                            {% if usuario_form.password.label.errors %}
-                              <label class="error">
-                                {% for error in usuario_form.password.label.errors %}
-                                  {{error}}
-                                {% endfor %}
-                              </label>
-                            {% endif %}
-                        </div>
-                        <div class="form-group col-md-3">  
-                          <label>
-                            {{usuario_form.email.label}}
-                            <strong style="color:red;"> *</strong>
-                          </label>
-                          {{ usuario_form.email}}
-                          {% if usuario_form.email.label.errors %}
-                            <label class="error">
-                              {% for error in usuario_form.email.label.errors %}
-                                {{error}}
-                              {% endfor %}
-                            </label>
-                          {% endif %}
-                      </div>
-                      <div class="form-group col-md-3">  
-                        <label>
-                          {{usuario_form.cpf.label}}
-                          <strong style="color:red;"> *</strong>
-                        </label>
-                        {{ usuario_form.cpf}}
-                        {% if usuario_form.cpf.label.errors %}
-                          <label class="error">
-                            {% for error in usuario_form.cpf.label.errors %}
-                              {{error}}
-                            {% endfor %}
-                          </label>
-                        {% endif %}
-                      </div>
-                      <div class="form-group col-md-2">  
-                        <label>
-                          {{usuario_form.matricula.label}}
-                          <strong style="color:red;"> *</strong>
-                        </label>
-                        {{ usuario_form.matricula}}
-                        {% if usuario_form.matricula.label.errors %}
-                          <label class="error">
-                            {% for error in usuario_form.matricula.label.errors %}
-                              {{error}}
-                            {% endfor %}
-                          </label>
-                        {% endif %}
-                      </div>
-                      <div class="form-group col-md-2">  
-                        <label>
-                          {{usuario_form.habilitacao.label}}
-                          <strong style="color:red;"> *</strong>
-                        </label>
-                        {{ usuario_form.habilitacao}}
-                        {% if usuario_form.habilitacao.label.errors %}
-                          <label class="error">
-                            {% for error in usuario_form.habilitacao.label.errors %}
-                              {{error}}
-                            {% endfor %}
-                          </label>
-                        {% endif %}
-                      </div>
-                    </div>                       
-                      <div class="form-group" style="padding: 15px;">  
-                        <button type="submit" class="btn btn-primary ">Cadastrar</button>
-                      </div>
-                </div>
-              </div>  
-            </div>
-          </form>   {% endcomment %}
         </div>
       </div>
     </div>

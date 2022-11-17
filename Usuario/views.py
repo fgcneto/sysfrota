@@ -39,13 +39,13 @@ def home_authenticated(request):
         return render(request, "Base/base.html")
 
 
-class UsuarioEditView(SweetifySuccessMixin, generic.UpdateView, LoginRequiredMixin):
+class UsuarioEditView(LoginRequiredMixin, generic.UpdateView, SweetifySuccessMixin):
     model = Usuario
-    fields = ['is_superuser', 'is_staff', 'user_type',
-              'first_name', 'last_name', 'username', 'password',
-              'email', 'cpf', 'matricula', 'habilitacao']
-    success_message = 'Usuário Alterado com Sucesso!'
+    form = forms.CustomUserChangeForm
     template_name = 'Usuario/editar_usuario.html'
+    fields = ['user_type', 'first_name', 'last_name', 'username',
+              'password', 'email', 'cpf', 'matricula', 'habilitacao']
+    success_message = 'Usuário Alterado com Sucesso!'
     success_message = 'Editado!'
     sweetify_options = {'text': 'Informações do Usuário alteradas com sucesso!',
                         'timer': 3000
@@ -77,7 +77,7 @@ def usuario_delete(request, pk):
     return redirect("usuario:listar_usuarios")
 
 
-class UsuarioListView(ListView, LoginRequiredMixin):
+class UsuarioListView(LoginRequiredMixin, ListView):
     model = Usuario
     paginate_by = 6
     template_name = 'Usuario/listar_usuarios.html'
@@ -96,11 +96,11 @@ class UsuarioListView(ListView, LoginRequiredMixin):
         return context
 
 
-class UsuarioRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
+class UsuarioRegisterView(LoginRequiredMixin, generic.CreateView, SweetifySuccessMixin):
     model = Usuario
     form_class = forms.CustomUserCreationForm
     fields = ['user_type', 'first_name', 'last_name',
-              'username', 'password', 'email',
+              'username', 'password1', 'password2', 'email',
               'cpf', 'matricula', 'habilitacao']
     success_message = 'Cadastrado!'
     sweetify_options = {'text': 'Informações do Usuário cadastradas com sucesso.',

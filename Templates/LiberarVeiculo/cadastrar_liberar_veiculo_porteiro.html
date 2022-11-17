@@ -74,7 +74,7 @@
                           {% csrf_token %}
                           {{ liberarveiculo_form.as_p }}
                           <div class="row">
-                            <div class="col-md-7">
+                            <div class="col-md-3">
                               <label for="observacoes" class="form-label">{{ form.observacoes.label }}</label>    
                               {{ form.observacoes }}
                                 {% if form.observacoes.errors %}
@@ -84,7 +84,7 @@
                                     {% endfor %}
                                   </label>
                                 {% endif %}
-                            </div>
+                            </div> 
                             {% if liberarveiculo.porteiro_saida == None %}
                               <div class="mb-3 col-md-6">
                                 <label for="kmsaida" class="form-label">{{ form.km_saida.label }}</label>

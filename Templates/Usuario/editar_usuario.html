@@ -2,15 +2,15 @@
 {% load bootstrap5 %}
 
 {% block titulo_pagina %}
-Editar
+Cadastrar
 {% endblock %}
 
 {% block raiz %}
-Usuários
+Usuario
 {% endblock %}
 
 {% block titulo %}
-Editar
+Cadastrar
 {% endblock %}
 
 {% block conteudo %}
@@ -19,15 +19,142 @@ Editar
     <div class="col-xl">
       <div class="card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="mb-0">Atualizar dados: {{ object }}</h5>
-          <small class="text-muted float-end"></small>
+          <h5 class="mb-0">Dados do usuario</h5>
+          <small class="text-muted float-end">Informações cadastrais sobre o usuário</small>
         </div>
         <div class="card-body">
-            <form method="POST">
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                <button type="submit" class="btn btn-primary">Atualizar</button>
-            </form>
+          <form method="POST">
+            {% csrf_token %}
+            
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="user_type" class="form-label">
+                  {{ form.user_type.label }}
+                  <strong style="color:red;"> *</strong>
+                </label>    
+                {{ form.user_type }}
+                  {% if form.user_type.errors %}
+                    <label class="error">
+                      {% for error in form.user_type.errors %}
+                        {{ error }}
+                      {% endfor %}
+                    </label>
+                  {% endif %}
+              </div>
+              <div class="mb-3 col-md-4">
+                <label for="first_name" class="form-label">
+                  {{ form.first_name.label }}
+                  <strong style="color:red;"> *</strong>
+                </label>
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                  <label class="error">
+                    {% for error in form.first_name.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>
+              <div class="mb-3 col-md-4">
+                <label for="last_name" class="form-label">
+                  {{ form.last_name.label }}
+                  <strong style="color:red;"> *</strong>
+                </label>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                  <label class="error">
+                    {% for error in form.last_name.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>
+              <div class="mb-3 col-md-4">
+                <label for="username" class="form-label">
+                  {{ form.username.label }}
+                  <strong style="color:red;"> *</strong>
+                </label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                  <label class="error">
+                    {% for error in form.username.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>
+              <div class="mb-3 col-md-4">
+                <label for="cpf" class="form-label">
+                  {{ form.password.label }}
+                </label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                  <label class="error">
+                    {% for error in form.password.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>                
+              <div type="email" class="mb-3 col-md-4">
+                <label for="email" class="form-label">
+                  {{ form.email.label }}
+                </label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                  <label class="error">
+                    {% for error in form.email.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>
+              <div class="mb-3 col-md-4">
+                <label for="cpf" class="form-label">
+                  {{ form.cpf.label }}
+                </label>
+                {{ form.cpf }}
+                {% if form.cpf.errors %}
+                  <label class="error">
+                    {% for error in form.cpf.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>
+              <div class="mb-3 col-md-4">
+                <label for="matricula" class="form-label">
+                  {{ form.matricula.label }}
+                </label>
+                {{ form.matricula }}
+                {% if form.matricula.errors %}
+                  <label class="error">
+                    {% for error in form.matricula.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>
+              <div class="mb-3 col-md-4">
+                <label for="habilitacao" class="form-label">
+                  {{ form.habilitacao.label }}
+                </label>
+                {{ form.habilitacao }}
+                {% if form.habilitacao.errors %}
+                  <label class="error">
+                    {% for error in form.habilitacao.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </label>
+                {% endif %}
+              </div>             
+              <div class="mt-2">
+                <button type="submit" class="btn btn-primary me-2">Salvar</button>
+                <a href="{% url 'usuario:listar_usuarios' %}">
+                  <button type="button" class="btn btn-outline-danger">Cancelar</button>
+                </a>
+              </div>
+            </div>
           </form>
         </div>
       </div>

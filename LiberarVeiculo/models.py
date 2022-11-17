@@ -53,7 +53,7 @@ class LiberarVeiculo(models.Model):
         null=True, blank=True, verbose_name="Data e Hora da Chegada")
 
     def __str__(self):
-        return str(self.agendamento) + " - " + str(self.responsavel_liberacao) + " - " + str(self.agendamento.motorista) + " - " + str(self.agendamento.veiculo)
+        return str(self.agendamento.veiculo) + " - " + str(self.agendamento.data_saida)
 
     class Meta:
         ordering = ['agendamento']

@@ -25,27 +25,29 @@ Cadastrar
         <div class="card-body">
           <form method="POST"> 
             {% csrf_token %}
-            <div class="row">                 
-              <div class="row">
-                <div class="col-sm-4">  
-                  <label for="marca" class="form-label">
-                    {{veiculo_form.marca.label}}
+            <div class="row">   
+              <div class="col-sm-6">
+                <label class="form-label" for="basic-icon-default-fullname">
+                  {{veiculo_form.marca.label}}
                     <strong style="color:red;"> *</strong>
-                  <label>
-                    {{ veiculo_form.marca}}
-                    {% if veiculo_form.marca.errors %}
-                      <label class="error">
-                        {% for error in veiculo_form.marca.errors %}
-                          {{error}}
-                        {% endfor %}
-                      </label>
-                    {% endif %}
+                </label>
+                <div class="input-group input-group-merge">
+                  {{ veiculo_form.marca}}
+                  {% if veiculo_form.marca.errors %}
+                    <label class="error">
+                      {% for error in veiculo_form.marca.errors %}
+                        {{error}}
+                      {% endfor %}
+                    </label>
+                  {% endif %}
                 </div>
-                <div class="form-group col-md-4">  
-                  <label>
-                    {{veiculo_form.tipo.label}}
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="basic-icon-default-fullname">
+                  {{veiculo_form.tipo.label}}
                     <strong style="color:red;"> *</strong>
-                  <label>
+                </label>
+                <div class="input-group input-group-merge">
                   {{ veiculo_form.tipo}}
                   {% if veiculo_form.tipo.errors %}
                     <label class="error">
@@ -54,50 +56,57 @@ Cadastrar
                       {% endfor %}
                     </label>
                   {% endif %}
-                </div> 
-                <div class="form-group col-md-4">  
-                  <label>
-                    {{veiculo_form.placa.label}}
+                </div>
+              </div>             
+              <div class="col-sm-4">
+                <label class="form-label" for="basic-icon-default-fullname">
+                  {{veiculo_form.placa.label}}
                     <strong style="color:red;"> *</strong>
-                  <label>
-                      {{ veiculo_form.placa}}
-                      {% if veiculo_form.placa.errors %}
-                        <label class="error">
-                          {% for error in veiculo_form.placa.errors %}
-                            {{error}}
-                          {% endfor %}
-                        </label>
-                    {% endif %}
-                </div>  
-                <div class="form-group col-md-3">  
-                  <label>
-                    {{veiculo_form.kilometragem.label}}
+                </label>
+                <div class="input-group input-group-merge">
+                  {{ veiculo_form.placa}}
+                  {% if veiculo_form.placa.errors %}
+                    <label class="error">
+                      {% for error in veiculo_form.placa.errors %}
+                        {{error}}
+                      {% endfor %}
+                    </label>
+                  {% endif %}
+                </div>
+              </div>   
+              <div class="col-sm-4">
+                <label class="form-label" for="basic-icon-default-fullname">
+                  {{veiculo_form.kilometragem.label}}
                     <strong style="color:red;"> *</strong>
-                  </label>
+                </label>
+                <div class="input-group input-group-merge">
                   {{ veiculo_form.kilometragem}}
-                  {% if veiculo_form.kilometragem.label.errors %}
+                  {% if veiculo_form.kilometragem.errors %}
                     <label class="error">
-                      {% for error in veiculo_form.kilometragem.label.errors %}
+                      {% for error in veiculo_form.kilometragem.errors %}
                         {{error}}
                       {% endfor %}
                     </label>
                   {% endif %}
                 </div>
-                <div class="form-group col-md-3">  
-                  <label>
-                    {{veiculo_form.ano_fabricacao.label}}
+              </div> 
+              <div class="col-sm-4">
+                <label class="form-label" for="basic-icon-default-fullname">
+                  {{veiculo_form.ano_fabricacao.label}}
                     <strong style="color:red;"> *</strong>
-                  </label>
+                </label>
+                <div class="input-group input-group-merge">
                   {{ veiculo_form.ano_fabricacao}}
-                  {% if veiculo_form.ano_fabricacao.label.errors %}
+                  {% if veiculo_form.ano_fabricacao.errors %}
                     <label class="error">
-                      {% for error in veiculo_form.ano_fabricacao.label.errors %}
+                      {% for error in veiculo_form.ano_fabricacao.errors %}
                         {{error}}
                       {% endfor %}
                     </label>
                   {% endif %}
                 </div>
-              </div>                       
+              </div>  
+                                     
               <div class="form-group" style="padding: 15px;">  
                 <button type="submit" class="btn btn-primary ">Cadastrar</button>
               </div>    

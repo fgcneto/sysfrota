@@ -13,6 +13,7 @@ class EditVeiculoForm(ModelForm):
 
 
 class VeiculoForm(ModelForm):
+
     class Meta:
         model = Veiculo
         fields = (

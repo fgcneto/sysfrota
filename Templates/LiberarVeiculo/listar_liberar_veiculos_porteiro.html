@@ -78,14 +78,13 @@
                             <thead>
                               <tr>
                                 <th>Veículo</th>
-                                <th>Agenda</th>
                               </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
                               {% for liberarveiculo in liberarveiculos %}
                               <tr>
                                 <td>{{ liberarveiculo.agendamento.veiculo }}</td>
-                                <td>{{ liberarveiculo.agendamento.data_saida|date:"d-m-Y H:i" }}</td>  
+                                {% comment %} <td>{{ liberarveiculo.agendamento.data_saida|date:"d-m-y H:i" }}</td>   {% endcomment %}
                                 <td>
                                   {% if liberarveiculo.porteiro_saida == None or liberarveiculo.porteiro_chegada == None %}
                                     {% if liberarveiculo.porteiro_saida == None %}

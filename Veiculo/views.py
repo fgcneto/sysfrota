@@ -1,15 +1,12 @@
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.views import generic
-from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from Veiculo.models import Veiculo
 from Veiculo.filters import VeiculoFilter
 from Veiculo import forms
 
 import sweetify
-from sweetify.views import SweetifySuccessMixin
 
 
 @login_required
@@ -51,7 +48,7 @@ def veiculo_edit(request, pk):
     return render(request, template_name, context)
 
 
-class VeiculoListView(SweetifySuccessMixin, ListView, LoginRequiredMixin):
+class VeiculoListView(LoginRequiredMixin, ListView):
     model = Veiculo
     paginate_by = 6
     template_name = 'Veiculo/listar_veiculos.html'

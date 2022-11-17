@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.utils.timezone import now
-from datetime import date, timedelta
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.views.generic import ListView
@@ -15,7 +14,7 @@ import sweetify
 from sweetify.views import SweetifySuccessMixin
 
 
-class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequiredMixin):
+class AgendaRegisterView(LoginRequiredMixin, generic.CreateView, SweetifySuccessMixin):
     model = Agenda
     form_class = forms.AgendamentoForm
     fields = ['descricao', 'data_saida',
@@ -33,7 +32,6 @@ class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequired
         return context
 
     def form_valid(self, form):
-        # hora_atual = now() - timedelta(hours=3)
         hora_atual = now()
         self.object = form.save(commit=False)
         self.object.usuario_cadastro = self.request.user
@@ -87,7 +85,7 @@ class AgendaRegisterView(SweetifySuccessMixin, generic.CreateView, LoginRequired
         return self.sweetify_options
 
 
-class AgendaListView(LoginRequiredMixin, SweetifySuccessMixin, ListView):
+class AgendaListView(LoginRequiredMixin, ListView, SweetifySuccessMixin):
     model = Agenda
     paginate_by = 6
     template_name = 'Agenda/listar_agendamentos.html'
@@ -119,7 +117,7 @@ class AgendaListView(LoginRequiredMixin, SweetifySuccessMixin, ListView):
         return context
 
 
-class AgendaEditView(SweetifySuccessMixin, generic.UpdateView):
+class AgendaEditView(LoginRequiredMixin, generic.UpdateView, SweetifySuccessMixin):
     model = Agenda
     form_class = forms.AgendamentoForm
     template_name = 'Agenda/cadastrar_agendamento.html'
@@ -131,7 +129,6 @@ class AgendaEditView(SweetifySuccessMixin, generic.UpdateView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.usuario_cadastro = self.request.user
-        # hora_atual = now() - timedelta(hours=3)
         hora_atual = now()
 
         def verifica_conflito_agendamento_datas(self):
