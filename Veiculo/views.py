@@ -1,7 +1,8 @@
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
+import Usuario
 from Veiculo.models import Veiculo
 from Veiculo.filters import VeiculoFilter
 from Veiculo import forms
@@ -9,6 +10,7 @@ from Veiculo import forms
 import sweetify
 
 
+# @permission_required(Usuario.objects.filter(user_type=1))
 @login_required
 def veiculo_create(request):
     template_name = 'Veiculo/cadastrar_veiculo.html'
