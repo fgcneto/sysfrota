@@ -56,7 +56,7 @@ class AgendaRegisterView(LoginRequiredMixin, generic.CreateView, SweetifySuccess
             if self.object.data_saida < self.object.data_retorno \
                     and self.object.data_saida >= hora_atual:
                 self.object.save()
-                response = super(SweetifySuccessMixin, self).form_valid(form)
+                response = super().form_valid(form)
                 success_message = self.get_success_message(form.cleaned_data)
                 if success_message:
                     sweetify.success(self.request, success_message,
@@ -151,7 +151,7 @@ class AgendaEditView(LoginRequiredMixin, generic.UpdateView, SweetifySuccessMixi
             if self.object.data_saida < self.object.data_retorno \
                     and self.object.data_saida >= hora_atual:
                 self.object.save()
-                response = super(SweetifySuccessMixin, self).form_valid(form)
+                response = super().form_valid(form)
                 success_message = self.get_success_message(form.cleaned_data)
                 if success_message:
                     sweetify.success(self.request, success_message,
@@ -195,3 +195,35 @@ def agendamento_delete(request, pk):
         sweetify.error(request, 'Erro ao excluir ',
                        text='Este Agendamento já possui uma Liberação cadastrada', timer=3500)
     return redirect("agenda:listar_agendamentos")
+
+
+class AgendaView(LoginRequiredMixin, ListView, SweetifySuccessMixin):
+    model = Agenda
+    paginate_by = 6
+    template_name = 'Agenda/agenda.html'
+    context_object_name = 'agendas'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = AgendaFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        events = Agenda.objects.all()
+        event_list = []
+
+        for event in events:
+            event_list.append(
+                {
+                    "title": event.veiculo,
+                    "start": event.data_saida.strftime("%Y-%m-%dT%H:%M:%S"),
+                    "end": event.data_retorno.strftime("%Y-%m-%dT%H:%M:%S"),
+
+                }
+            )
+        context = super(AgendaView, self).get_context_data(**kwargs)
+        context['agendas'] = Agenda.objects.all()
+        context['listar_agendamentos'] = 'active'
+        context['filterset'] = self.filterset
+        context['events'] = event_list
+        return context

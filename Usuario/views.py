@@ -36,7 +36,7 @@ def home_authenticated(request):
         return redirect("liberarveiculo:listar-liberar-veiculos-porteiro")
         # user Administrativo
     else:
-        return render(request, "Base/base.html")
+        return redirect("agenda:agendamentos")
 
 
 class UsuarioEditView(LoginRequiredMixin, generic.UpdateView, SweetifySuccessMixin):

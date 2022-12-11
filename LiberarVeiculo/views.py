@@ -29,7 +29,7 @@ class CadastrarLiberarVeiculo(LoginRequiredMixin, generic.CreateView, SweetifySu
         self.object = form.save(commit=False)
         self.object.responsavel_liberacao = self.request.user
         self.object.save()
-        response = super(SweetifySuccessMixin, self).form_valid(form)
+        response = super().form_valid(form)
         success_message = self.get_success_message(form.cleaned_data)
 
         if success_message:
@@ -91,7 +91,7 @@ class LiberarVeiculoEditView(LoginRequiredMixin, generic.UpdateView, SweetifySuc
         self.object = form.save(commit=False)
         self.object.responsavel_liberacao = self.request.user
         self.object.save()
-        response = super(SweetifySuccessMixin, self).form_valid(form)
+        response = super().form_valid(form)
         success_message = self.get_success_message(form.cleaned_data)
 
         if success_message:

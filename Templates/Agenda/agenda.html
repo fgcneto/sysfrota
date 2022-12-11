@@ -1,0 +1,69 @@
+{% extends "Base/base.html" %}
+{% load static %}
+{% load pagination_tag %}
+
+{% block titulo_pagina %}
+Veículos
+{% endblock %}
+
+{% block raiz %}
+Agendamento
+{% endblock %}
+
+{% block titulo %}
+Listar
+{% endblock %}
+
+{% block conteudo %}
+
+<div class="row">
+  <div class="col-xl">
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Agenda dos Veículos</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive text-nowrap">
+            <div id="calendar" class="container" style="padding: auto;">
+              <div id="events">
+              </div>
+            </div>
+            <br>
+         </div>
+        </div>
+      </div>
+    </div>
+</div>
+                   
+{% endblock %}
+
+
+{% block extra_js %}
+<!-- calendar -->
+<script src="{% static 'calendar/lib/main.js' %}"></script>
+<script src="{% static 'calendar/lib/locales-all.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var calendarUI = document.getElementById("calendar");
+    var calendar = new FullCalendar.Calendar(calendarUI, {
+      timeZone: 'UTC',
+      initialView: 'dayGridMonth',
+      events: [
+      
+        {% for agenda in events %}
+          {
+            title: '{{ agenda.title }}',
+            start: '{{ agenda.start }}',
+            end: '{{ agenda.end }}'
+          },
+        {% endfor %} 
+
+      ],
+      editable: false,
+      selectable: false
+    });
+    calendar.render();
+    calendar.setOption('locale', 'pt-br')
+  });
+</script>
+{% endblock extra_js %}

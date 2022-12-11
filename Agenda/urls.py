@@ -14,6 +14,10 @@ urlpatterns = [
          views.AgendaListView.as_view(),
          name='listar_agendamentos'
          ),
+    path('agendamentos',
+         views.AgendaView.as_view(),
+         name='agendamentos'
+         ),
     path('editar-agendamento/<int:pk>',
          views.AgendaEditView.as_view(),
          name='editar_agendamento'
